@@ -1,0 +1,6086 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+
+<head>
+
+  <base target="_top">
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Chi tiết sản phẩm - InfoBuy</title>
+
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+
+
+    body {
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      color: #222;
+
+      background: #fff;
+
+      line-height: 1.55;
+
+    }
+
+
+    /*
+    =====================================================
+    HEADER
+    =====================================================
+    */
+
+    header {
+
+      height: 62px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      padding: 0 30px;
+
+      border-bottom: 1px solid #eee;
+
+    }
+
+
+    .brand {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      text-decoration: none;
+
+      color: #444;
+
+      font-size: 20px;
+
+      font-weight: bold;
+
+    }
+
+
+    .logo {
+
+      width: 34px;
+      height: 34px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      font-size: 8px;
+
+      color: #348f68;
+
+    }
+
+
+    nav {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+    }
+
+
+    nav a {
+
+      text-decoration: none;
+
+      color: #777;
+
+      font-size: 13px;
+
+    }
+
+
+    nav a:hover {
+
+      color: #359269;
+
+    }
+
+
+    /*
+    =====================================================
+    CONTAINER
+    =====================================================
+    */
+
+    .container {
+
+      width: 90%;
+
+      max-width: 1050px;
+
+      margin: auto;
+
+    }
+
+
+    /*
+    =====================================================
+    LOADING + ERROR
+    =====================================================
+    */
+
+    #loading {
+
+      min-height: 600px;
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      color: #777;
+
+    }
+
+
+    #errorBox {
+
+      display: none;
+
+      min-height: 600px;
+
+      justify-content: center;
+
+      align-items: center;
+
+      text-align: center;
+
+      color: #d93025;
+
+    }
+
+
+    #productContent {
+
+      display: none;
+
+    }
+
+
+    /*
+    =====================================================
+    PRODUCT TOP
+    =====================================================
+    */
+
+    .product-top {
+
+      display: grid;
+
+      grid-template-columns:
+        400px 1fr;
+
+      gap: 35px;
+
+      padding: 45px 0 60px;
+
+    }
+
+
+    .main-image {
+
+      width: 100%;
+
+      height: 410px;
+
+      background: #fafafa;
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      overflow: hidden;
+
+    }
+
+
+    .main-image img {
+
+      width: 100%;
+
+      height: 100%;
+
+      object-fit: contain;
+
+    }
+
+
+    .image-placeholder {
+
+      color: #999;
+
+      font-size: 14px;
+
+      text-align: center;
+
+    }
+
+
+    .product-summary {
+
+      padding-top: 8px;
+
+    }
+
+
+    .category {
+
+      color: #777;
+
+      font-size: 13px;
+
+      margin-bottom: 8px;
+
+    }
+
+
+    .product-title {
+
+      font-size: 28px;
+
+      margin-bottom: 20px;
+
+    }
+
+
+    .price {
+
+      color: #f01818;
+
+      font-size: 29px;
+
+      font-weight: bold;
+
+      margin-bottom: 42px;
+
+    }
+
+
+    /*
+    =====================================================
+    BUTTONS
+    =====================================================
+    */
+
+    .actions {
+
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 14px;
+
+      margin-bottom: 35px;
+
+    }
+
+
+    .btn {
+
+      height: 46px;
+
+      cursor: pointer;
+
+      font-weight: bold;
+
+      font-size: 13px;
+
+      border-radius: 2px;
+
+    }
+
+
+    .btn-cart {
+
+      background: white;
+
+      color: #3d986f;
+
+      border: 1px solid #3d986f;
+
+    }
+
+
+    .btn-buy {
+
+      background: #3d986f;
+
+      color: white;
+
+      border: 1px solid #3d986f;
+
+    }
+
+
+    .quantity-selector {
+
+      margin-bottom: 18px;
+
+    }
+
+
+    .quantity-selector label {
+
+      display: block;
+
+      margin-bottom: 8px;
+
+      font-size: 13px;
+
+      font-weight: bold;
+
+    }
+
+
+    .quantity-controls {
+
+      display: flex;
+
+      width: fit-content;
+
+    }
+
+
+    .quantity-controls button,
+    .quantity-controls input {
+
+      height: 38px;
+
+      border: 1px solid #ccc;
+
+      text-align: center;
+
+    }
+
+
+    .quantity-controls button {
+
+      width: 38px;
+
+      background: #fff;
+
+      cursor: pointer;
+
+      font-size: 18px;
+
+    }
+
+
+    .quantity-controls input {
+
+      width: 58px;
+
+      border-left: 0;
+
+      border-right: 0;
+
+    }
+
+
+    /*
+    =====================================================
+    QUICK INFO
+    =====================================================
+    */
+
+    .quick-info {
+
+      border-top: 1px solid #eee;
+
+      padding-top: 22px;
+
+    }
+
+
+    .quick-info h3 {
+
+      font-size: 15px;
+
+      margin-bottom: 15px;
+
+    }
+
+
+    .quick-info p {
+
+      font-size: 14px;
+
+      margin-bottom: 10px;
+
+    }
+
+
+    /*
+    =====================================================
+    SECTIONS
+    =====================================================
+    */
+
+    .separator {
+
+      height: 1px;
+
+      background: #ddd;
+
+    }
+
+
+    .section {
+
+      margin: 28px 0;
+
+      padding: 38px;
+
+      background: #f7fafc;
+
+    }
+
+
+    .box {
+
+      background: white;
+
+      border: 1px solid #dce3e8;
+
+      border-radius: 7px;
+
+      padding: 28px;
+
+    }
+
+
+    .box h2 {
+
+      font-size: 18px;
+
+      margin-bottom: 22px;
+
+    }
+
+
+    .green-title {
+
+      color: #378e67;
+
+    }
+
+
+    /*
+    =====================================================
+    INFO ROW
+    =====================================================
+    */
+
+    .info-row {
+
+      display: grid;
+
+      grid-template-columns:
+        200px 1fr;
+
+      gap: 20px;
+
+      padding: 11px 0;
+
+      border-bottom: 1px solid #eee;
+
+      font-size: 14px;
+
+    }
+
+
+    .info-row:last-child {
+
+      border-bottom: none;
+
+    }
+
+
+    /*
+    =====================================================
+    TEXT BLOCK
+    =====================================================
+    */
+
+    .text-block {
+
+      margin-top: 20px;
+
+      padding-top: 20px;
+
+      border-top: 1px solid #eee;
+
+    }
+
+
+    .text-block h3 {
+
+      font-size: 15px;
+
+      margin-bottom: 10px;
+
+    }
+
+
+    .text-block p {
+
+      white-space: pre-line;
+
+      font-size: 14px;
+
+    }
+
+
+    /*
+    =====================================================
+    CERTIFICATE
+    =====================================================
+    */
+
+    .certificate-images {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 20px;
+
+      margin-top: 25px;
+
+    }
+
+
+    .certificate-images img {
+
+      width: 100%;
+
+      height: 280px;
+
+      object-fit: contain;
+
+      border: 1px solid #eee;
+
+    }
+
+
+    .no-certificate {
+
+      margin-top: 20px;
+
+      color: #888;
+
+      font-size: 14px;
+
+    }
+
+
+    /*
+    =====================================================
+    FOOTER
+    =====================================================
+    */
+
+    footer {
+
+      margin-top: 50px;
+
+      background: #40956f;
+
+      min-height: 150px;
+
+      padding: 30px 20px;
+
+    }
+
+
+    .footer-content {
+
+      width: 90%;
+
+      max-width: 1050px;
+
+      margin: auto;
+
+      font-size: 13px;
+
+      line-height: 2.8;
+
+    }
+
+
+    /*
+    =====================================================
+    RESPONSIVE
+    =====================================================
+    */
+
+    @media (max-width: 800px) {
+
+      nav {
+        display: none;
+      }
+
+
+      .product-top {
+
+        grid-template-columns: 1fr;
+
+      }
+
+
+      .main-image {
+
+        height: 350px;
+
+      }
+
+
+      .actions {
+
+        grid-template-columns: 1fr;
+
+      }
+
+
+      .info-row {
+
+        grid-template-columns: 1fr;
+
+        gap: 4px;
+
+      }
+
+
+      .certificate-images {
+
+        grid-template-columns: 1fr;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+
+<body>
+
+<!-- ===================================================
+     HEADER
+=================================================== -->
+
+<header>
+
+  <a
+    class="brand"
+    href="index.html"
+  >
+
+    <div class="logo">
+      InfoBuy
+    </div>
+
+    InfoBuy
+
+  </a>
+
+
+  <nav>
+
+    <a
+      href="index.html"
+    >
+      TRANG CHỦ
+    </a>
+
+
+    <span>·</span>
+
+
+    <a
+      href="products.html"
+    >
+      SẢN PHẨM
+    </a>
+
+
+    <span>·</span>
+
+
+    <a href="#">
+      TIN TỨC
+    </a>
+
+
+    <span>·</span>
+
+
+    <a href="#">
+      HỖ TRỢ
+    </a>
+
+
+    <span>·</span>
+
+
+    <a
+      href="cart.html"
+    >
+      GIỎ HÀNG
+    </a>
+
+  </nav>
+
+</header>
+
+
+
+<!-- ===================================================
+     EYE TRACKING TEST
+=================================================== -->
+
+<aside
+  class="eye-tracking-test"
+  aria-label="Eye Tracking Test"
+>
+
+  <strong>Eye Tracking Test</strong>
+
+  <button
+    id="startEyeTrackingButton"
+    type="button"
+  >
+    B&#7855;t &#273;&#7847;u Eye Tracking
+  </button>
+
+  <div>
+    Tr&#7841;ng th&#225;i:
+    <span
+      id="eyeTrackingStatus"
+      aria-live="polite"
+    >Ch&#432;a b&#7855;t &#273;&#7847;u</span>
+  </div>
+
+</aside>
+
+
+
+<aside
+  id="researchEyeTrackingConsent"
+  class="research-eye-tracking-consent"
+  aria-label="Webcam research consent"
+  hidden
+>
+
+  <p>
+    Cho ph&#233;p s&#7917; d&#7909;ng webcam &#273;&#7875; ghi nh&#7853;n h&#432;&#7899;ng nh&#236;n trong qu&#225; tr&#236;nh mua s&#7855;m ph&#7909;c v&#7909; nghi&#234;n c&#7913;u.
+  </p>
+
+  <button
+    id="researchEyeTrackingConsentButton"
+    type="button"
+  >&#272;&#7891;ng &#253; v&#224; ti&#7871;p t&#7909;c</button>
+
+</aside>
+
+
+
+<div
+  id="eyeTrackingOverlay"
+  class="eye-tracking-overlay"
+  aria-live="polite"
+  aria-modal="true"
+  role="dialog"
+  hidden
+>
+
+  <div class="eye-tracking-overlay-content">
+
+    <h2 id="eyeTrackingOverlayTitle">
+      Eye Tracking Calibration
+    </h2>
+
+    <p id="eyeTrackingOverlayInstruction"></p>
+
+    <button
+      id="eyeTrackingTarget"
+      class="eye-tracking-target"
+      type="button"
+      hidden
+    ></button>
+
+    <button
+      id="retryEyeTrackingButton"
+      class="eye-tracking-retry"
+      type="button"
+      hidden
+    >Hi\u1ec7u ch\u1ec9nh l\u1ea1i</button>
+
+  </div>
+
+</div>
+
+
+
+<!-- ===================================================
+     LOADING
+=================================================== -->
+
+<div
+  id="loading"
+  class="container"
+>
+
+  Đang tải thông tin sản phẩm...
+
+</div>
+
+
+
+<!-- ===================================================
+     ERROR
+=================================================== -->
+
+<div
+  id="errorBox"
+  class="container"
+>
+
+  <div>
+
+    <strong>
+      Không thể tải sản phẩm.
+    </strong>
+
+    <br><br>
+
+    <span id="errorMessage"></span>
+
+  </div>
+
+</div>
+
+
+
+<!-- ===================================================
+     PRODUCT CONTENT
+=================================================== -->
+
+<main
+  id="productContent"
+  class="container"
+>
+
+
+  <!-- =================================================
+       PRODUCT TOP
+  ================================================= -->
+
+  <section class="product-top">
+
+
+    <!-- AOI IMAGE -->
+
+    <div
+      class="main-image"
+      id="imageContainer"
+      data-aoi="image"
+    >
+
+      <img
+        id="productImage"
+        src=""
+        alt=""
+      >
+
+    </div>
+
+
+
+    <div class="product-summary">
+
+
+      <!-- CATEGORY -->
+
+      <div
+        id="productCategory"
+        class="category"
+      ></div>
+
+
+
+      <!-- AOI NAME -->
+
+      <h1
+        id="productName"
+        class="product-title"
+        data-aoi="name"
+      ></h1>
+
+
+
+      <!-- AOI PRICE -->
+
+      <div
+        id="productPrice"
+        class="price"
+        data-aoi="price"
+      ></div>
+
+
+
+      <!-- ACTIONS -->
+
+      <div class="actions">
+
+
+        <button
+          class="btn btn-cart"
+          data-aoi="add-to-cart"
+          onclick="addToCart()"
+        >
+
+          THÊM VÀO GIỎ HÀNG
+
+        </button>
+
+
+        <button
+          class="btn btn-buy"
+          data-aoi="buy"
+          onclick="buyNow()"
+        >
+
+          MUA NGAY
+
+        </button>
+
+
+      </div>
+
+
+
+      <div class="quantity-selector">
+
+        <label for="quantityInput">
+          S&#7889; l&#432;&#7907;ng
+        </label>
+
+        <div class="quantity-controls">
+
+          <button
+            type="button"
+            aria-label="Gi&#7843;m s&#7889; l&#432;&#7907;ng"
+            onclick="changeQuantity(-1)"
+          >
+            -
+          </button>
+
+          <input
+            id="quantityInput"
+            type="number"
+            min="1"
+            step="1"
+            value="1"
+            inputmode="numeric"
+            onchange="getSelectedQuantity()"
+            onblur="getSelectedQuantity()"
+          >
+
+          <button
+            type="button"
+            aria-label="T&#259;ng s&#7889; l&#432;&#7907;ng"
+            onclick="changeQuantity(1)"
+          >
+            +
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- BASIC INFORMATION -->
+
+      <div
+        class="quick-info"
+        data-aoi="basic-info"
+      >
+
+        <h3>
+          Thông tin sản phẩm
+        </h3>
+
+
+        <p>
+
+          <strong>
+            Mã sản phẩm:
+          </strong>
+
+          <span id="quickProductId"></span>
+
+        </p>
+
+
+        <p>
+
+          <strong>
+            Danh mục:
+          </strong>
+
+          <span id="quickCategory"></span>
+
+        </p>
+
+
+        <p>
+
+          <strong>
+            Nơi sản xuất:
+          </strong>
+
+          <span id="quickOrigin"></span>
+
+        </p>
+
+
+        <p>
+
+          <strong>
+            Quy cách đóng gói:
+          </strong>
+
+          <span id="quickPackage"></span>
+
+        </p>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <div class="separator"></div>
+
+
+
+  <!-- =================================================
+       PRODUCT INFORMATION
+  ================================================= -->
+
+  <section class="section">
+
+    <div class="box">
+
+
+      <h2>
+        Thông tin sản phẩm
+      </h2>
+
+
+
+      <div
+        class="info-row"
+        data-aoi="basic-info"
+      >
+
+        <strong>
+          Mã sản phẩm
+        </strong>
+
+        <span id="detailProductId"></span>
+
+      </div>
+
+
+
+      <div
+        class="info-row"
+        data-aoi="basic-info"
+      >
+
+        <strong>
+          Tên sản phẩm
+        </strong>
+
+        <span id="detailName"></span>
+
+      </div>
+
+
+
+      <div
+        class="info-row"
+        data-aoi="origin"
+      >
+
+        <strong>
+          Nơi sản xuất
+        </strong>
+
+        <span id="detailOrigin"></span>
+
+      </div>
+
+
+
+      <div
+        class="info-row"
+        data-aoi="package"
+      >
+
+        <strong>
+          Quy cách đóng gói
+        </strong>
+
+        <span id="detailPackage"></span>
+
+      </div>
+
+
+
+      <!-- AOI INGREDIENTS -->
+
+      <div
+        class="text-block"
+        data-aoi="ingredients"
+      >
+
+        <h3>
+          Thành phần
+        </h3>
+
+        <p id="detailIngredients"></p>
+
+      </div>
+
+
+
+      <!-- AOI USAGE -->
+
+      <div
+        class="text-block"
+        data-aoi="usage"
+      >
+
+        <h3>
+          Hướng dẫn sử dụng
+        </h3>
+
+        <p id="detailUsage"></p>
+
+      </div>
+
+
+
+      <!-- AOI STORAGE -->
+
+      <div
+        class="text-block"
+        data-aoi="storage"
+      >
+
+        <h3>
+          Bảo quản
+        </h3>
+
+        <p id="detailStorage"></p>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <div class="separator"></div>
+
+
+
+  <!-- =================================================
+       TRACEABILITY
+  ================================================= -->
+
+  <section
+    class="section"
+    data-aoi="traceability"
+  >
+
+    <div class="box">
+
+
+      <h2 class="green-title">
+        Thông tin truy xuất nguồn gốc
+      </h2>
+
+
+
+      <div class="info-row">
+
+        <strong>
+          Mã truy xuất
+        </strong>
+
+        <span id="traceCode"></span>
+
+      </div>
+
+
+
+      <div class="info-row">
+
+        <strong>
+          Xuất xứ
+        </strong>
+
+        <span id="traceOrigin"></span>
+
+      </div>
+
+
+
+      <div class="info-row">
+
+        <strong>
+          Chứng nhận
+        </strong>
+
+        <span id="traceCertification"></span>
+
+      </div>
+
+
+
+      <div class="info-row">
+
+        <strong>
+          Vùng nguyên liệu
+        </strong>
+
+        <span id="materialRegion"></span>
+
+      </div>
+
+
+
+      <div class="info-row">
+
+        <strong>
+          Nhà sản xuất
+        </strong>
+
+        <span id="manufacturer"></span>
+
+      </div>
+
+
+
+      <div class="info-row">
+
+        <strong>
+          Địa chỉ nhà sản xuất
+        </strong>
+
+        <span id="manufacturerAddress"></span>
+
+      </div>
+
+
+
+      <div class="info-row">
+
+        <strong>
+          Nhà phân phối
+        </strong>
+
+        <span id="distributor"></span>
+
+      </div>
+
+
+
+      <div class="info-row">
+
+        <strong>
+          Địa chỉ nhà phân phối
+        </strong>
+
+        <span id="distributorAddress"></span>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =================================================
+       CERTIFICATION
+  ================================================= -->
+
+  <section
+    class="section"
+    data-aoi="certification"
+  >
+
+    <div class="box">
+
+
+      <h2 class="green-title">
+        Thông tin chứng nhận
+      </h2>
+
+
+      <p>
+
+        <strong>
+          Chứng nhận:
+        </strong>
+
+        <span id="certification"></span>
+
+      </p>
+
+
+
+      <div
+        id="certificateImages"
+        class="certificate-images"
+      ></div>
+
+
+      <div
+        id="noCertificateImages"
+        class="no-certificate"
+        style="display:none;"
+      >
+
+        Chưa có ảnh chứng nhận.
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!--
+  =====================================================
+  MARKER
+
+  Sau này dùng để xác định người dùng
+  đã kéo tới cuối thông tin sản phẩm.
+  =====================================================
+  -->
+
+  <div
+    id="product-info-end"
+    data-scroll-marker="product-end"
+  ></div>
+
+
+</main>
+
+
+
+<!-- ===================================================
+     FOOTER
+=================================================== -->
+
+<footer>
+
+  <div class="footer-content">
+
+    <strong>
+      InfoBuy
+    </strong>
+
+
+    <div>
+
+      <strong>
+        Địa chỉ:
+      </strong>
+
+      Lương Định Của,
+      phường An Phú,
+      TP.HCM
+
+    </div>
+
+
+    <div>
+
+      <strong>
+        Số điện thoại:
+      </strong>
+
+      0914455878
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+
+<!-- ===================================================
+     JAVASCRIPT
+=================================================== -->
+
+<!-- WebGazer.js official distribution -->
+<script src="https://cdn.jsdelivr.net/npm/webgazer@3.5.3/dist/webgazer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@0.4.1633559619/face_mesh.js"></script>
+
+<script>
+
+  console.log(
+    'WEBGAZER:',
+    window.webgazer
+  );
+
+  console.log(
+    'begin:',
+    typeof window.webgazer?.begin
+  );
+
+  console.log(
+    'setGazeListener:',
+    typeof window.webgazer?.setGazeListener
+  );
+
+  console.log(
+    'showPredictionPoints:',
+    typeof window.webgazer?.showPredictionPoints
+  );
+
+  /*
+  =========================================================
+   CONFIG
+  =========================================================
+  */
+
+
+  const API_URL =
+    'https://script.google.com/macros/s/AKfycbyfepk9EfTaL7sdRgrT9vWtF8tkGZS2UArLIEUT2CbhSY7HJ7T_b92YQulqzAHo3Wte/exec';
+
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+  const productId =
+    params.get('id');
+
+
+  let currentProduct =
+    null;
+
+  const SESSION_KEY =
+    'infobuy_session_id';
+
+  const CAMERA_PERMISSION_KEY =
+    'infobuy_camera_permission';
+
+
+  function getSessionId() {
+
+    let sessionId =
+      localStorage.getItem(
+        SESSION_KEY
+      );
+
+
+    if (!sessionId) {
+
+      sessionId =
+        'SID_' +
+        Date.now() +
+        '_' +
+        Math.random()
+          .toString(36)
+          .substring(2, 8)
+          .toUpperCase();
+
+
+      localStorage.setItem(
+        SESSION_KEY,
+        sessionId
+      );
+
+    }
+
+
+    return sessionId;
+  }
+
+  /*
+  =========================================================
+   SCROLL TRACKING
+  =========================================================
+  */
+
+  const reachedAOIs =
+    new Set();
+
+
+  function startScrollTracking() {
+
+    /*
+     Chỉ theo dõi những phần tử
+     đã được đánh dấu data-aoi
+    */
+
+    const aoiElements =
+      document.querySelectorAll(
+        '[data-aoi]'
+      );
+
+
+    if (!aoiElements.length) {
+
+      console.log(
+        'Không tìm thấy AOI để tracking'
+      );
+
+      return;
+    }
+
+
+    /*
+     AOI phải xuất hiện ít nhất 50%
+     trong viewport
+    */
+
+    const observer =
+      new IntersectionObserver(
+
+        function(entries) {
+
+          entries.forEach(
+            function(entry) {
+
+              if (!entry.isIntersecting) {
+                return;
+              }
+
+
+              /*
+               Tỷ lệ phần tử đang xuất hiện
+               trên màn hình
+              */
+
+              const ratio =
+                entry.intersectionRatio;
+
+
+              if (ratio < 0.5) {
+                return;
+              }
+
+
+              const aoi =
+                entry.target.dataset.aoi;
+
+
+              if (!aoi) {
+                return;
+              }
+
+
+              /*
+               Mỗi AOI chỉ ghi một lần
+               cho lần xem trang này
+              */
+
+              if (
+                reachedAOIs.has(aoi)
+              ) {
+                return;
+              }
+
+
+              reachedAOIs.add(aoi);
+
+
+              saveScrollAOI(
+                aoi,
+                ratio
+              );
+
+
+              /*
+               Không cần theo dõi AOI này nữa
+              */
+
+              observer.unobserve(
+                entry.target
+              );
+
+            }
+          );
+
+        },
+
+        {
+          threshold: [0.5]
+        }
+
+      );
+
+
+    /*
+     Bắt đầu quan sát từng AOI
+    */
+
+    aoiElements.forEach(
+      function(element) {
+
+        observer.observe(
+          element
+        );
+
+      }
+    );
+
+  }
+
+
+  /*
+  =========================================================
+   GỬI EVENT VỀ GOOGLE SHEET
+  =========================================================
+  */
+
+  function saveScrollAOI(
+    aoi,
+    visibleRatio
+  ) {
+
+    if (!SESSION_ID) {
+      return;
+    }
+
+    if (!productId) {
+      return;
+    }
+
+
+    const eventData = {
+
+      session_id:
+      SESSION_ID,
+
+      product_id:
+      productId,
+
+      aoi:
+      aoi,
+
+      event:
+        'reached',
+
+      visible_ratio:
+        Number(
+          visibleRatio.toFixed(2)
+        ),
+
+      scroll_y:
+        Math.round(
+          window.scrollY
+        )
+
+    };
+
+
+    console.log(
+      'ScrollTracking:',
+      eventData
+    );
+
+
+    fetch(API_URL, {
+      method: 'POST',
+
+      headers: {
+        'Content-Type':
+          'text/plain;charset=utf-8'
+      },
+
+      body: JSON.stringify({
+        action: 'saveScrollEvent',
+        data: eventData
+      })
+    })
+      .then(response => {
+
+        if (!response.ok) {
+          throw new Error(
+            'HTTP error: ' + response.status
+          );
+        }
+
+        return response.json();
+      })
+      .then(result => {
+
+        if (!result.success) {
+          throw new Error(
+            result.message ||
+            '\u004B\u0068\u00F4\u006E\u0067 \u0074\u0068\u1EC3 \u006C\u01B0\u0075 ScrollTracking'
+          );
+        }
+
+        console.log(
+          'ScrollTracking saved:',
+          result
+        );
+
+      })
+      .catch(error => {
+
+        console.error(
+          'ScrollTracking save error:',
+          error
+        );
+
+      });
+
+  }
+
+  const SESSION_ID =
+    getSessionId();
+
+
+  /*
+  =========================================================
+   AOI EXPOSURE × SCREEN ATTENTION
+  =========================================================
+  */
+
+  const currentlyVisibleAOIs =
+    new Set();
+
+  const visibleAOIElements =
+    new Set();
+
+  const aoiExposureMetrics =
+    {};
+
+  let aoiExposureObserver =
+    null;
+
+  let aoiExposureTimer =
+    null;
+
+  let aoiExposureFlushTimer =
+    null;
+
+  let lastAOIExposureTimestamp =
+    null;
+
+  let lastFlushedAOIExposureMetrics =
+    {};
+
+  let aoiExposureFlushInFlight =
+    false;
+
+  let lastAOIExposureDebugLogAt =
+    0;
+
+  const AOI_EXPOSURE_FLUSH_INTERVAL_MS =
+    30000;
+
+  const AOI_EXPOSURE_TICK_INTERVAL_MS =
+    100;
+
+  const MAX_AOI_EXPOSURE_DELTA_MS =
+    250;
+
+  const AOI_EXPOSURE_DEBUG =
+    false;
+
+
+  function createEmptyAOIExposureMetrics() {
+
+    return {
+      visible_time_ms: 0,
+      attentive_visible_time_ms: 0
+    };
+
+  }
+
+
+  function getAOIExposureMetrics(aoi) {
+
+    if (!aoiExposureMetrics[aoi]) {
+      aoiExposureMetrics[aoi] =
+        createEmptyAOIExposureMetrics();
+    }
+
+    return aoiExposureMetrics[aoi];
+
+  }
+
+
+  function refreshCurrentlyVisibleAOIs() {
+
+    currentlyVisibleAOIs.clear();
+
+    visibleAOIElements.forEach(
+      function(element) {
+
+        const aoi =
+          element.dataset.aoi;
+
+        if (aoi) {
+          currentlyVisibleAOIs.add(aoi);
+        }
+
+      }
+    );
+
+  }
+
+
+  function maybeLogAOIExposureDebug(now) {
+
+    if (
+      !AOI_EXPOSURE_DEBUG ||
+      now - lastAOIExposureDebugLogAt < 1000
+    ) {
+      return;
+    }
+
+    lastAOIExposureDebugLogAt =
+      now;
+
+    console.log(
+      'AOI EXPOSURE:',
+      {
+        visibleAOIs: Array.from(currentlyVisibleAOIs),
+        attentionState: stableScreenAttentionState || 'unknown',
+        metrics: JSON.parse(
+          JSON.stringify(aoiExposureMetrics)
+        )
+      }
+    );
+
+  }
+
+
+  function updateAOIExposure(now) {
+
+    if (document.visibilityState !== 'visible') {
+      lastAOIExposureTimestamp =
+        null;
+      return;
+    }
+
+    if (lastAOIExposureTimestamp === null) {
+      lastAOIExposureTimestamp =
+        now;
+      return;
+    }
+
+    const deltaMs =
+      now - lastAOIExposureTimestamp;
+
+    lastAOIExposureTimestamp =
+      now;
+
+    if (
+      !Number.isFinite(deltaMs) ||
+      deltaMs <= 0 ||
+      deltaMs > MAX_AOI_EXPOSURE_DELTA_MS
+    ) {
+      return;
+    }
+
+    const isAttentionLooking =
+      stableScreenAttentionState === 'looking';
+
+    currentlyVisibleAOIs.forEach(
+      function(aoi) {
+
+        const metrics =
+          getAOIExposureMetrics(aoi);
+
+        metrics.visible_time_ms +=
+          deltaMs;
+
+        if (isAttentionLooking) {
+          metrics.attentive_visible_time_ms +=
+            deltaMs;
+        }
+
+      }
+    );
+
+    maybeLogAOIExposureDebug(now);
+
+  }
+
+
+  function createAOIExposureFlushSnapshot() {
+
+    const metrics =
+      [];
+
+    const nextFlushedMetrics =
+      {};
+
+    Object.keys(aoiExposureMetrics).forEach(
+      function(aoi) {
+
+        const currentMetrics =
+          aoiExposureMetrics[aoi];
+
+        const currentVisibleTime =
+          Math.max(
+            0,
+            Math.round(
+              Number(currentMetrics.visible_time_ms) || 0
+            )
+          );
+
+        const currentAttentiveVisibleTime =
+          Math.min(
+            currentVisibleTime,
+            Math.max(
+              0,
+              Math.round(
+                Number(
+                  currentMetrics.attentive_visible_time_ms
+                ) || 0
+              )
+            )
+          );
+
+        const previousMetrics =
+          lastFlushedAOIExposureMetrics[aoi] ||
+          createEmptyAOIExposureMetrics();
+
+        const visibleDelta =
+          Math.max(
+            0,
+            currentVisibleTime -
+            (Number(previousMetrics.visible_time_ms) || 0)
+          );
+
+        const attentiveVisibleDelta =
+          Math.min(
+            visibleDelta,
+            Math.max(
+              0,
+              currentAttentiveVisibleTime -
+              (Number(
+                previousMetrics.attentive_visible_time_ms
+              ) || 0)
+            )
+          );
+
+        nextFlushedMetrics[aoi] = {
+          visible_time_ms: currentVisibleTime,
+          attentive_visible_time_ms: currentAttentiveVisibleTime
+        };
+
+        if (
+          visibleDelta > 0 ||
+          attentiveVisibleDelta > 0
+        ) {
+          metrics.push({
+            aoi: aoi,
+            visible_time_ms: visibleDelta,
+            attentive_visible_time_ms: attentiveVisibleDelta
+          });
+        }
+
+      }
+    );
+
+    if (!metrics.length) {
+      return null;
+    }
+
+    return {
+      metrics: metrics,
+      nextFlushedMetrics: nextFlushedMetrics
+    };
+
+  }
+
+
+  function commitAOIExposureFlush(snapshot) {
+
+    lastFlushedAOIExposureMetrics =
+      snapshot.nextFlushedMetrics;
+
+  }
+
+
+  function flushAOIExposure(useKeepalive) {
+
+    if (
+      !productId ||
+      aoiExposureFlushInFlight
+    ) {
+      return Promise.resolve(
+        false
+      );
+    }
+
+    updateAOIExposure(
+      performance.now()
+    );
+
+    const snapshot =
+      createAOIExposureFlushSnapshot();
+
+    if (!snapshot) {
+      return Promise.resolve(
+        false
+      );
+    }
+
+    const payload = {
+      session_id: SESSION_ID,
+      product_id: productId,
+      metrics: snapshot.metrics
+    };
+
+    aoiExposureFlushInFlight =
+      true;
+
+    return fetch(API_URL, {
+      method: 'POST',
+
+      headers: {
+        'Content-Type':
+          'text/plain;charset=utf-8'
+      },
+
+      body: JSON.stringify({
+        action: 'saveAOIExposure',
+        data: payload
+      }),
+
+      keepalive:
+        Boolean(useKeepalive)
+    })
+      .then(
+        function(response) {
+
+          if (!response.ok) {
+            throw new Error(
+              'HTTP error: ' + response.status
+            );
+          }
+
+          return response.json();
+
+        }
+      )
+      .then(
+        function(result) {
+
+          if (!result.success) {
+            throw new Error(
+              result.message ||
+              'AOI Exposure save failed'
+            );
+          }
+
+          commitAOIExposureFlush(snapshot);
+
+          return true;
+
+        }
+      )
+      .catch(
+        function(error) {
+
+          console.error(
+            'AOI Exposure save error:',
+            error
+          );
+
+          return false;
+
+        }
+      )
+      .finally(
+        function() {
+          aoiExposureFlushInFlight =
+            false;
+        }
+      );
+
+  }
+
+
+  function startAOIExposureTracking() {
+
+    if (aoiExposureObserver) {
+      return;
+    }
+
+    const aoiElements =
+      document.querySelectorAll(
+        '[data-aoi]'
+      );
+
+    if (!aoiElements.length) {
+      return;
+    }
+
+    aoiElements.forEach(
+      function(element) {
+        getAOIExposureMetrics(
+          element.dataset.aoi
+        );
+      }
+    );
+
+    aoiExposureObserver =
+      new IntersectionObserver(
+        function(entries) {
+
+          entries.forEach(
+            function(entry) {
+
+              if (
+                entry.isIntersecting &&
+                entry.intersectionRatio >= 0.5
+              ) {
+                visibleAOIElements.add(
+                  entry.target
+                );
+              } else {
+                visibleAOIElements.delete(
+                  entry.target
+                );
+              }
+
+            }
+          );
+
+          refreshCurrentlyVisibleAOIs();
+
+        },
+        {
+          threshold: [0, 0.5]
+        }
+      );
+
+    aoiElements.forEach(
+      function(element) {
+        aoiExposureObserver.observe(
+          element
+        );
+      }
+    );
+
+    lastAOIExposureTimestamp =
+      document.visibilityState === 'visible'
+        ? performance.now()
+        : null;
+
+    aoiExposureTimer =
+      window.setInterval(
+        function() {
+          updateAOIExposure(
+            performance.now()
+          );
+        },
+        AOI_EXPOSURE_TICK_INTERVAL_MS
+      );
+
+    aoiExposureFlushTimer =
+      window.setInterval(
+      function() {
+        flushAOIExposure(
+          false
+        );
+      },
+      AOI_EXPOSURE_FLUSH_INTERVAL_MS
+    );
+
+  }
+
+
+  function stopAOIExposureTracking() {
+
+    if (aoiExposureTimer) {
+      window.clearInterval(
+        aoiExposureTimer
+      );
+
+      aoiExposureTimer =
+        null;
+    }
+
+    if (aoiExposureFlushTimer) {
+      window.clearInterval(
+        aoiExposureFlushTimer
+      );
+
+      aoiExposureFlushTimer =
+        null;
+    }
+
+  }
+
+
+  document.addEventListener(
+    'visibilitychange',
+    function() {
+
+      lastAOIExposureTimestamp =
+        document.visibilityState === 'visible'
+          ? performance.now()
+          : null;
+
+    }
+  );
+
+
+  window.addEventListener(
+    'pagehide',
+    function() {
+
+      updateAOIExposure(
+        performance.now()
+      );
+
+      flushAOIExposure(
+        true
+      );
+
+      stopAOIExposureTracking();
+
+    }
+  );
+
+
+  /*
+  =========================================================
+   EYE TRACKING TEST
+  =========================================================
+  */
+
+  let eyeTrackingStarted =
+    false;
+
+  let eyeTrackingState =
+    'idle';
+
+  let calibrationPointIndex =
+    0;
+
+  let calibrationClickCount =
+    0;
+
+  let validationPointIndex =
+    0;
+
+  let validationSamples =
+    [];
+
+  let validationCollectionActive =
+    false;
+
+  let validationResults =
+    [];
+
+  let eyeTrackingRunId =
+    0;
+
+  let researchTrackingStartTime =
+    null;
+
+  let researchGazeBuffer =
+    [];
+
+  let eyeTrackingMetrics =
+    {};
+
+  let screenAttentionMetrics =
+    null;
+
+  let lastFlushedScreenAttentionMetrics =
+    null;
+
+  let lastScreenAttentionTimestamp =
+    null;
+
+  let lastScreenAttentionResultAt =
+    null;
+
+  let attentionStateBuffer =
+    [];
+
+  let stableScreenAttentionState =
+    null;
+
+  let researchCameraStream =
+    null;
+
+  let researchCameraVideo =
+    null;
+
+  let researchFaceMesh =
+    null;
+
+  let researchAttentionFrameRequestId =
+    null;
+
+  let researchAttentionFrameInFlight =
+    false;
+
+  let researchAttentionTrackingActive =
+    false;
+
+  let researchAttentionHasReceivedResult =
+    false;
+
+  let latestScreenAttentionState =
+    'unknown';
+
+  let latestAttentionDebugData =
+    null;
+
+  let lastAttentionDebugLogAt =
+    0;
+
+  let eyeTrackingFlushTimer =
+    null;
+
+  let eyeTrackingFlushInFlight =
+    false;
+
+
+  const CALIBRATION_CLICKS_PER_POINT =
+    5;
+
+  const VALIDATION_SETTLE_MS =
+    700;
+
+  const VALIDATION_SAMPLE_MS =
+    1200;
+
+  // Prototype validation threshold.
+  // Must be reviewed before formal research deployment.
+  const VALIDATION_THRESHOLD =
+    0.10;
+
+  const EYE_TRACKING_MODE =
+    'research';
+
+  // 'development'
+  // 'research'
+
+  const IS_DEVELOPMENT_MODE =
+    EYE_TRACKING_MODE === 'development';
+
+  const SHOW_GAZE_DEBUG_POINT =
+    IS_DEVELOPMENT_MODE;
+
+  // Set false for actual participant sessions
+  // to avoid influencing visual attention.
+
+  const EYE_TRACKING_DEBUG =
+    IS_DEVELOPMENT_MODE;
+
+  const AOI_EDGE_MARGIN_PX =
+    0;
+
+  // Keep at 0 for the initial prototype.
+  // Any AOI margin must be justified and validated before research use.
+
+  // Prototype fixation parameters.
+  // Must be validated/reviewed before formal research deployment.
+  const FIXATION_MIN_DURATION_MS =
+    200;
+
+  // This threshold applies to dispersionX + dispersionY,
+  // not to a radial distance.
+  const FIXATION_MAX_DISPERSION_PX =
+    100;
+
+  // Prototype AOI-majority threshold.
+  const FIXATION_AOI_MAJORITY =
+    0.70;
+
+  const EYE_TRACKING_FLUSH_INTERVAL_MS =
+    30000;
+
+  const MAX_ATTENTION_DELTA_MS =
+    250;
+
+  const ATTENTION_WINDOW_SIZE =
+    5;
+
+  // MediaPipe Face Mesh landmark indices: nose tip, eye inner/outer corners,
+  // face sides, and upper-lip center from the 468-point topology.
+  const ATTENTION_NOSE_TIP_INDEX =
+    1;
+
+  const ATTENTION_LEFT_EYE_OUTER_INDEX =
+    33;
+
+  const ATTENTION_RIGHT_EYE_OUTER_INDEX =
+    263;
+
+  const ATTENTION_LEFT_EYE_INNER_INDEX =
+    133;
+
+  const ATTENTION_RIGHT_EYE_INNER_INDEX =
+    362;
+
+  const ATTENTION_LEFT_FACE_SIDE_INDEX =
+    234;
+
+  const ATTENTION_RIGHT_FACE_SIDE_INDEX =
+    454;
+
+  const ATTENTION_MOUTH_CENTER_INDEX =
+    13;
+
+  // Prototype thresholds, normalized by face geometry. They must be
+  // validated before interpreting results beyond estimated screen attention.
+  const ATTENTION_YAW_THRESHOLD =
+    0.18;
+
+  const ATTENTION_PITCH_THRESHOLD =
+    0.24;
+
+  const SCREEN_ATTENTION_DEBUG =
+    false;
+
+  const CALIBRATION_POINT_RATIOS = [
+    [0.15, 0.15],
+    [0.50, 0.15],
+    [0.85, 0.15],
+    [0.15, 0.50],
+    [0.50, 0.50],
+    [0.85, 0.50],
+    [0.15, 0.85],
+    [0.50, 0.85],
+    [0.85, 0.85]
+  ];
+
+  const VALIDATION_POINT_RATIOS = [
+    [0.25, 0.25],
+    [0.75, 0.25],
+    [0.50, 0.50],
+    [0.25, 0.75],
+    [0.75, 0.75]
+  ];
+
+
+  function setEyeTrackingStatus(status) {
+
+    document
+      .getElementById(
+        'eyeTrackingStatus'
+      )
+      .textContent =
+      status;
+
+  }
+
+
+  function configureEyeTrackingModeUI() {
+
+    document
+      .querySelector(
+        '.eye-tracking-test'
+      )
+      .hidden =
+      !IS_DEVELOPMENT_MODE;
+
+    document
+      .getElementById(
+        'researchEyeTrackingConsent'
+      )
+      .hidden =
+      true;
+
+  }
+
+
+  function hideResearchEyeTrackingConsent() {
+
+    document
+      .getElementById(
+        'researchEyeTrackingConsent'
+      )
+      .hidden =
+      true;
+
+  }
+
+
+  function configureWebGazerVisuals() {
+
+    if (
+      typeof window.webgazer.showPredictionPoints ===
+      'function'
+    ) {
+      window.webgazer.showPredictionPoints(
+        SHOW_GAZE_DEBUG_POINT
+      );
+    }
+
+
+  }
+
+
+  function hideResearchWebGazerVisuals() {
+
+    if (
+      typeof window.webgazer.showPredictionPoints ===
+      'function'
+    ) {
+      window.webgazer.showPredictionPoints(
+        false
+      );
+    }
+
+
+    if (
+      typeof window.webgazer.showVideoPreview ===
+      'function'
+    ) {
+      window.webgazer.showVideoPreview(
+        false
+      );
+    }
+
+  }
+
+
+  async function waitForWebGazerReady(
+    timeoutMs = 10000
+  ) {
+
+    const deadline =
+      performance.now() + timeoutMs;
+
+
+    while (performance.now() < deadline) {
+
+      if (
+        window.webgazer &&
+        typeof window.webgazer.isReady === 'function' &&
+        window.webgazer.isReady() === true
+      ) {
+        return true;
+      }
+
+
+      await new Promise(
+        function(resolve) {
+          window.setTimeout(
+            resolve,
+            100
+          );
+        }
+      );
+
+    }
+
+
+    return (
+      window.webgazer &&
+      typeof window.webgazer.isReady === 'function' &&
+      window.webgazer.isReady() === true
+    );
+
+  }
+
+
+  function startResearchAttentionTracking() {
+
+    resetResearchTracking();
+
+    resetScreenAttentionTracking();
+
+    eyeTrackingState =
+      'ready';
+
+    hideResearchEyeTrackingConsent();
+
+    startEyeTrackingFlushTimer();
+
+
+    if (EYE_TRACKING_DEBUG) {
+      console.log(
+        'Research tracking started'
+      );
+    }
+
+  }
+
+
+  function createEmptyScreenAttentionMetrics() {
+
+    return {
+      tracking_time_ms: 0,
+      looking_time_ms: 0,
+      not_looking_time_ms: 0,
+      unknown_time_ms: 0
+    };
+
+  }
+
+
+  function resetScreenAttentionTracking() {
+
+    researchTrackingStartTime =
+      performance.now();
+
+    screenAttentionMetrics =
+      createEmptyScreenAttentionMetrics();
+
+    lastFlushedScreenAttentionMetrics =
+      createEmptyScreenAttentionMetrics();
+
+    lastScreenAttentionTimestamp =
+      document.visibilityState === 'visible'
+        ? performance.now()
+        : null;
+
+    lastScreenAttentionResultAt =
+      null;
+
+    attentionStateBuffer =
+      [];
+
+    stableScreenAttentionState =
+      'unknown';
+
+    latestScreenAttentionState =
+      'unknown';
+
+  }
+
+
+  function getAttentionLandmark(landmarks, index) {
+
+    const landmark =
+      landmarks && landmarks[index];
+
+
+    if (
+      !landmark ||
+      !Number.isFinite(landmark.x) ||
+      !Number.isFinite(landmark.y) ||
+      !Number.isFinite(landmark.z)
+    ) {
+      return null;
+    }
+
+
+    return landmark;
+
+  }
+
+
+  function classifyScreenAttention(faceData) {
+
+    if (
+      document.visibilityState !== 'visible' ||
+      !faceData ||
+      !faceData.faceDetected ||
+      !Array.isArray(faceData.landmarks)
+    ) {
+      return 'unknown';
+    }
+
+
+    const landmarks =
+      faceData.landmarks;
+
+    const nose =
+      getAttentionLandmark(
+        landmarks,
+        ATTENTION_NOSE_TIP_INDEX
+      );
+
+    const leftEyeOuter =
+      getAttentionLandmark(
+        landmarks,
+        ATTENTION_LEFT_EYE_OUTER_INDEX
+      );
+
+    const rightEyeOuter =
+      getAttentionLandmark(
+        landmarks,
+        ATTENTION_RIGHT_EYE_OUTER_INDEX
+      );
+
+    const leftEyeInner =
+      getAttentionLandmark(
+        landmarks,
+        ATTENTION_LEFT_EYE_INNER_INDEX
+      );
+
+    const rightEyeInner =
+      getAttentionLandmark(
+        landmarks,
+        ATTENTION_RIGHT_EYE_INNER_INDEX
+      );
+
+    const leftFaceSide =
+      getAttentionLandmark(
+        landmarks,
+        ATTENTION_LEFT_FACE_SIDE_INDEX
+      );
+
+    const rightFaceSide =
+      getAttentionLandmark(
+        landmarks,
+        ATTENTION_RIGHT_FACE_SIDE_INDEX
+      );
+
+    const mouthCenter =
+      getAttentionLandmark(
+        landmarks,
+        ATTENTION_MOUTH_CENTER_INDEX
+      );
+
+
+    if (
+      !nose ||
+      !leftEyeOuter ||
+      !rightEyeOuter ||
+      !leftEyeInner ||
+      !rightEyeInner ||
+      !leftFaceSide ||
+      !rightFaceSide ||
+      !mouthCenter
+    ) {
+      return 'unknown';
+    }
+
+
+    const eyeCenterX =
+      (
+        leftEyeOuter.x +
+        leftEyeInner.x +
+        rightEyeOuter.x +
+        rightEyeInner.x
+      ) / 4;
+
+    const eyeCenterY =
+      (
+        leftEyeOuter.y +
+        leftEyeInner.y +
+        rightEyeOuter.y +
+        rightEyeInner.y
+      ) / 4;
+
+    const eyeDistance =
+      Math.abs(
+        rightEyeOuter.x - leftEyeOuter.x
+      );
+
+    const faceWidth =
+      Math.abs(
+        rightFaceSide.x - leftFaceSide.x
+      );
+
+    const faceHeight =
+      Math.abs(mouthCenter.y - eyeCenterY);
+
+
+    if (
+      !Number.isFinite(eyeDistance) ||
+      !Number.isFinite(faceWidth) ||
+      !Number.isFinite(faceHeight) ||
+      eyeDistance <= 0 ||
+      faceWidth <= 0 ||
+      faceHeight <= 0
+    ) {
+      return 'unknown';
+    }
+
+
+    // yawScore: nose displacement from the midpoint between both eye regions,
+    // normalized by face width. pitchScore: nose displacement from the midpoint
+    // between the eye line and mouth center, normalized by face height.
+    const yawScore =
+      (nose.x - eyeCenterX) /
+      faceWidth;
+
+    const pitchScore =
+      (nose.y -
+        ((eyeCenterY + mouthCenter.y) / 2)) /
+      faceHeight;
+
+
+    if (
+      !Number.isFinite(yawScore) ||
+      !Number.isFinite(pitchScore)
+    ) {
+      return 'unknown';
+    }
+
+
+    latestAttentionDebugData = {
+      yawScore: yawScore,
+      pitchScore: pitchScore,
+      faceDetected: true
+    };
+
+
+    if (
+      Math.abs(yawScore) <= ATTENTION_YAW_THRESHOLD &&
+      Math.abs(pitchScore) <= ATTENTION_PITCH_THRESHOLD
+    ) {
+      // LOOKING means estimated frontal screen/camera attention only. It does
+      // not establish reading, AOI attention, or eye-tracker accuracy.
+      return 'looking';
+    }
+
+
+    return 'not_looking';
+
+  }
+
+
+  function updateStableScreenAttentionState(rawState) {
+
+    attentionStateBuffer.push(rawState);
+
+    if (
+      attentionStateBuffer.length >
+      ATTENTION_WINDOW_SIZE
+    ) {
+      attentionStateBuffer.shift();
+    }
+
+
+    if (
+      attentionStateBuffer.length <
+      ATTENTION_WINDOW_SIZE
+    ) {
+      stableScreenAttentionState =
+        'unknown';
+      return stableScreenAttentionState;
+    }
+
+
+    const counts = {};
+
+    attentionStateBuffer.forEach(
+      function(state) {
+        counts[state] =
+          (counts[state] || 0) + 1;
+      }
+    );
+
+
+    let majorityState =
+      'unknown';
+
+    let majorityCount =
+      0;
+
+    Object.keys(counts).forEach(
+      function(state) {
+        if (counts[state] > majorityCount) {
+          majorityState =
+            state;
+          majorityCount =
+            counts[state];
+        }
+      }
+    );
+
+
+    stableScreenAttentionState =
+      majorityCount > ATTENTION_WINDOW_SIZE / 2
+        ? majorityState
+        : 'unknown';
+
+    return stableScreenAttentionState;
+
+  }
+
+
+  function maybeLogScreenAttentionDebug(rawState) {
+
+    if (!SCREEN_ATTENTION_DEBUG) {
+      return;
+    }
+
+
+    const now =
+      performance.now();
+
+    if (now - lastAttentionDebugLogAt < 1000) {
+      return;
+    }
+
+
+    lastAttentionDebugLogAt =
+      now;
+
+    console.log(
+      'SCREEN ATTENTION:',
+      Object.assign(
+        {
+          rawState: rawState,
+          stableState: stableScreenAttentionState
+        },
+        latestAttentionDebugData || {
+          yawScore: null,
+          pitchScore: null,
+          faceDetected: false
+        }
+      )
+    );
+
+  }
+
+
+  function handleResearchFaceMeshResults(results) {
+
+    if (
+      !researchAttentionTrackingActive ||
+      document.visibilityState !== 'visible'
+    ) {
+      return;
+    }
+
+
+    const landmarks =
+      results &&
+      Array.isArray(results.multiFaceLandmarks) &&
+      results.multiFaceLandmarks[0];
+
+    const rawState =
+      classifyScreenAttention({
+        faceDetected: Boolean(landmarks),
+        landmarks: landmarks || null
+      });
+
+
+    if (!landmarks) {
+      latestAttentionDebugData = {
+        yawScore: null,
+        pitchScore: null,
+        faceDetected: false
+      };
+    }
+
+    latestScreenAttentionState =
+      rawState;
+
+    researchAttentionHasReceivedResult =
+      true;
+
+    lastScreenAttentionResultAt =
+      performance.now();
+
+    updateStableScreenAttentionState(rawState);
+    maybeLogScreenAttentionDebug(rawState);
+
+  }
+
+
+  function updateScreenAttentionTime(now) {
+
+    if (
+      !screenAttentionMetrics ||
+      document.visibilityState !== 'visible'
+    ) {
+      lastScreenAttentionTimestamp =
+        null;
+      return;
+    }
+
+
+    if (lastScreenAttentionTimestamp === null) {
+      lastScreenAttentionTimestamp =
+        now;
+      return;
+    }
+
+
+    const deltaMs =
+      now - lastScreenAttentionTimestamp;
+
+    lastScreenAttentionTimestamp =
+      now;
+
+
+    if (!Number.isFinite(deltaMs) || deltaMs <= 0) {
+      return;
+    }
+
+
+    const hasFreshResult =
+      lastScreenAttentionResultAt !== null &&
+      now - lastScreenAttentionResultAt <=
+      MAX_ATTENTION_DELTA_MS;
+
+    const attentionState =
+      deltaMs > MAX_ATTENTION_DELTA_MS ||
+      !hasFreshResult
+        ? 'unknown'
+        : stableScreenAttentionState || 'unknown';
+
+    screenAttentionMetrics.tracking_time_ms +=
+      deltaMs;
+
+    screenAttentionMetrics[
+      attentionState + '_time_ms'
+    ] += deltaMs;
+
+  }
+
+
+  function processResearchAttentionFrame() {
+
+    if (!researchAttentionTrackingActive) {
+      return;
+    }
+
+
+    updateScreenAttentionTime(
+      performance.now()
+    );
+
+
+    researchAttentionFrameRequestId =
+      window.requestAnimationFrame(
+        processResearchAttentionFrame
+      );
+
+
+    if (
+      document.visibilityState !== 'visible' ||
+      researchAttentionFrameInFlight ||
+      !researchFaceMesh ||
+      !researchCameraVideo ||
+      researchCameraVideo.readyState < 2 ||
+      researchCameraVideo.videoWidth <= 0 ||
+      researchCameraVideo.videoHeight <= 0
+    ) {
+      return;
+    }
+
+
+    researchAttentionFrameInFlight =
+      true;
+
+    researchFaceMesh.send({
+      image: researchCameraVideo
+    })
+      .catch(
+        function() {
+          latestScreenAttentionState =
+            'unknown';
+
+          stableScreenAttentionState =
+            'unknown';
+
+          lastScreenAttentionResultAt =
+            null;
+
+          if (!researchAttentionHasReceivedResult) {
+            eyeTrackingState =
+              'unavailable';
+
+            stopEyeTrackingFlushTimer();
+            stopResearchAttentionTracker();
+            hideResearchEyeTrackingConsent();
+            setEyeTrackingStatus(
+              'MediaPipe FaceMesh kh\u00f4ng s\u1eb5n s\u00e0ng'
+            );
+          }
+        }
+      )
+      .finally(
+        function() {
+          researchAttentionFrameInFlight =
+            false;
+        }
+      );
+
+  }
+
+
+  async function startResearchAttentionTracker() {
+
+    if (
+      !window.FaceMesh ||
+      !navigator.mediaDevices ||
+      typeof navigator.mediaDevices.getUserMedia !==
+      'function'
+    ) {
+      throw new Error(
+        'MediaPipe FaceMesh ho\u1eb7c camera kh\u00f4ng kh\u1ea3 d\u1ee5ng'
+      );
+    }
+
+
+    researchCameraStream =
+      await navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: {
+          facingMode: 'user'
+        }
+      });
+
+
+    researchCameraVideo =
+      document.createElement('video');
+
+    researchCameraVideo.autoplay =
+      true;
+
+    researchCameraVideo.muted =
+      true;
+
+    researchCameraVideo.playsInline =
+      true;
+
+    researchCameraVideo.setAttribute(
+      'aria-hidden',
+      'true'
+    );
+
+    researchCameraVideo.style.position =
+      'fixed';
+
+    researchCameraVideo.style.width =
+      '1px';
+
+    researchCameraVideo.style.height =
+      '1px';
+
+    researchCameraVideo.style.opacity =
+      '0';
+
+    researchCameraVideo.style.pointerEvents =
+      'none';
+
+    researchCameraVideo.style.left =
+      '-9999px';
+
+    researchCameraVideo.srcObject =
+      researchCameraStream;
+
+    document.body.appendChild(
+      researchCameraVideo
+    );
+
+
+    await new Promise(
+      function(resolve, reject) {
+        researchCameraVideo.addEventListener(
+          'loadedmetadata',
+          resolve,
+          { once: true }
+        );
+
+        researchCameraVideo.addEventListener(
+          'error',
+          reject,
+          { once: true }
+        );
+      }
+    );
+
+
+    await researchCameraVideo.play();
+
+
+    if (
+      researchCameraVideo.videoWidth <= 0 ||
+      researchCameraVideo.videoHeight <= 0
+    ) {
+      throw new Error(
+        'Camera frame ch\u01b0a s\u1eb5n s\u00e0ng'
+      );
+    }
+
+
+    researchFaceMesh =
+      new window.FaceMesh({
+        locateFile: function(file) {
+          return (
+            'https://cdn.jsdelivr.net/npm/' +
+            '@mediapipe/face_mesh@0.4.1633559619/' +
+            file
+          );
+        }
+      });
+
+    researchFaceMesh.setOptions({
+      maxNumFaces: 1,
+      refineLandmarks: true,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5
+    });
+
+    researchFaceMesh.onResults(
+      handleResearchFaceMeshResults
+    );
+
+    researchAttentionTrackingActive =
+      true;
+
+    researchAttentionHasReceivedResult =
+      false;
+
+    processResearchAttentionFrame();
+
+  }
+
+
+  function stopResearchAttentionTracker() {
+
+    researchAttentionTrackingActive =
+      false;
+
+    researchAttentionHasReceivedResult =
+      false;
+
+    researchAttentionFrameInFlight =
+      false;
+
+    if (researchAttentionFrameRequestId !== null) {
+      window.cancelAnimationFrame(
+        researchAttentionFrameRequestId
+      );
+
+      researchAttentionFrameRequestId =
+        null;
+    }
+
+
+    if (
+      researchFaceMesh &&
+      typeof researchFaceMesh.close === 'function'
+    ) {
+      researchFaceMesh.close();
+    }
+
+    researchFaceMesh =
+      null;
+
+
+    if (researchCameraStream) {
+      researchCameraStream.getTracks().forEach(
+        function(track) {
+          track.stop();
+        }
+      );
+    }
+
+    researchCameraStream =
+      null;
+
+
+    if (researchCameraVideo) {
+      researchCameraVideo.pause();
+      researchCameraVideo.srcObject =
+        null;
+      researchCameraVideo.remove();
+    }
+
+    researchCameraVideo =
+      null;
+
+  }
+
+
+  function getViewportPoints(pointRatios) {
+
+    return pointRatios.map(
+      function(pointRatio) {
+
+        return {
+          x: Math.round(
+            window.innerWidth * pointRatio[0]
+          ),
+          y: Math.round(
+            window.innerHeight * pointRatio[1]
+          )
+        };
+
+      }
+    );
+
+  }
+
+
+  function getMedian(values) {
+
+    if (!values.length) {
+      return null;
+    }
+
+
+    const sortedValues =
+      values.slice().sort(
+        function(a, b) {
+          return a - b;
+        }
+      );
+
+    const middleIndex =
+      Math.floor(
+        sortedValues.length / 2
+      );
+
+
+    if (sortedValues.length % 2) {
+      return sortedValues[middleIndex];
+    }
+
+
+    return (
+      sortedValues[middleIndex - 1] +
+      sortedValues[middleIndex]
+    ) / 2;
+
+  }
+
+
+  function getMean(values) {
+
+    if (!values.length) {
+      return null;
+    }
+
+
+    return values.reduce(
+      function(total, value) {
+        return total + value;
+      },
+      0
+    ) / values.length;
+
+  }
+
+
+  function getOverlayElements() {
+
+    return {
+      overlay:
+        document.getElementById(
+          'eyeTrackingOverlay'
+        ),
+      title:
+        document.getElementById(
+          'eyeTrackingOverlayTitle'
+        ),
+      instruction:
+        document.getElementById(
+          'eyeTrackingOverlayInstruction'
+        ),
+      target:
+        document.getElementById(
+          'eyeTrackingTarget'
+        ),
+      retryButton:
+        document.getElementById(
+          'retryEyeTrackingButton'
+        )
+    };
+
+  }
+
+
+  function showEyeTrackingOverlay() {
+
+    const overlayElements =
+      getOverlayElements();
+
+    overlayElements.overlay.hidden =
+      false;
+
+  }
+
+
+  function hideEyeTrackingOverlay() {
+
+    const overlayElements =
+      getOverlayElements();
+
+    overlayElements.overlay.hidden =
+      true;
+
+  }
+
+
+  function showEyeTrackingTarget(
+    point,
+    targetText,
+    targetClassName
+  ) {
+
+    const overlayElements =
+      getOverlayElements();
+
+    overlayElements.target.className =
+      'eye-tracking-target ' + targetClassName;
+
+    overlayElements.target.style.left =
+      point.x + 'px';
+
+    overlayElements.target.style.top =
+      point.y + 'px';
+
+    overlayElements.target.textContent =
+      targetText;
+
+    overlayElements.target.hidden =
+      false;
+
+  }
+
+
+  function hideEyeTrackingTarget() {
+
+    getOverlayElements().target.hidden =
+      true;
+
+  }
+
+
+  function stopWebGazerMouseTraining() {
+
+    if (
+      window.webgazer &&
+      typeof window.webgazer.removeMouseEventListeners ===
+      'function'
+    ) {
+      window.webgazer.removeMouseEventListeners();
+    }
+
+  }
+
+
+  async function beginCalibration() {
+
+    eyeTrackingRunId +=
+      1;
+
+    eyeTrackingState =
+      'calibrating';
+
+    calibrationPointIndex =
+      0;
+
+    calibrationClickCount =
+      0;
+
+    validationResults =
+      [];
+
+    validationSamples =
+      [];
+
+    validationCollectionActive =
+      false;
+
+
+    if (
+      typeof window.webgazer.clearData ===
+      'function'
+    ) {
+      await window.webgazer.clearData();
+    }
+
+
+    stopWebGazerMouseTraining();
+
+    setEyeTrackingStatus(
+      '\u0110ang hi\u1ec7u ch\u1ec9nh Eye Tracking...'
+    );
+
+
+    const overlayElements =
+      getOverlayElements();
+
+    overlayElements.title.textContent =
+      'Eye Tracking Calibration';
+
+    overlayElements.instruction.textContent =
+      'Nh\u00ecn v\u00e0o \u0111i\u1ec3m v\u00e0 nh\u1ea5p chu\u1ed9t v\u00e0o \u0111i\u1ec3m \u0111\u00f3. Gi\u1eef \u0111\u1ea7u t\u01b0\u01a1ng \u0111\u1ed1i \u1ed5n \u0111\u1ecbnh trong qu\u00e1 tr\u00ecnh hi\u1ec7u ch\u1ec9nh.';
+
+    overlayElements.retryButton.hidden =
+      true;
+
+    showEyeTrackingOverlay();
+    showNextCalibrationPoint();
+
+  }
+
+
+  function showNextCalibrationPoint() {
+
+    if (eyeTrackingState !== 'calibrating') {
+      return;
+    }
+
+
+    const calibrationPoints =
+      getViewportPoints(
+        CALIBRATION_POINT_RATIOS
+      );
+
+    const point =
+      calibrationPoints[calibrationPointIndex];
+
+
+    if (!point) {
+      startValidation();
+      return;
+    }
+
+
+    showEyeTrackingTarget(
+      point,
+      calibrationClickCount +
+      ' / ' +
+      CALIBRATION_CLICKS_PER_POINT,
+      'is-calibration'
+    );
+
+  }
+
+
+  function recordCalibrationClick(event) {
+
+    if (eyeTrackingState !== 'calibrating') {
+      return;
+    }
+
+
+    event.preventDefault();
+    event.stopPropagation();
+
+
+    const calibrationPoints =
+      getViewportPoints(
+        CALIBRATION_POINT_RATIOS
+      );
+
+    const point =
+      calibrationPoints[calibrationPointIndex];
+
+
+    if (!point) {
+      return;
+    }
+
+
+    window.webgazer.recordScreenPosition(
+      point.x,
+      point.y,
+      'click'
+    );
+
+
+    calibrationClickCount +=
+      1;
+
+
+    if (
+      calibrationClickCount >=
+      CALIBRATION_CLICKS_PER_POINT
+    ) {
+      calibrationPointIndex +=
+        1;
+
+      calibrationClickCount =
+        0;
+    }
+
+
+    showNextCalibrationPoint();
+
+  }
+
+
+  function startValidation() {
+
+    eyeTrackingRunId +=
+      1;
+
+    eyeTrackingState =
+      'validating';
+
+    validationPointIndex =
+      0;
+
+    validationResults =
+      [];
+
+    validationSamples =
+      [];
+
+    validationCollectionActive =
+      false;
+
+    stopWebGazerMouseTraining();
+
+    setEyeTrackingStatus(
+      '\u0110ang ki\u1ec3m tra \u0111\u1ed9 ch\u00ednh x\u00e1c...'
+    );
+
+
+    const overlayElements =
+      getOverlayElements();
+
+    overlayElements.title.textContent =
+      'Eye Tracking Validation';
+
+    overlayElements.instruction.textContent =
+      'Nh\u00ecn v\u00e0o \u0111i\u1ec3m, kh\u00f4ng c\u1ea7n nh\u1ea5p chu\u1ed9t.';
+
+    overlayElements.retryButton.hidden =
+      true;
+
+    showNextValidationPoint(
+      eyeTrackingRunId
+    );
+
+  }
+
+
+  function showNextValidationPoint(runId) {
+
+    if (
+      eyeTrackingState !== 'validating' ||
+      runId !== eyeTrackingRunId
+    ) {
+      return;
+    }
+
+
+    const validationPoints =
+      getViewportPoints(
+        VALIDATION_POINT_RATIOS
+      );
+
+    const point =
+      validationPoints[validationPointIndex];
+
+
+    if (!point) {
+      completeValidation();
+      return;
+    }
+
+
+    validationSamples =
+      [];
+
+    validationCollectionActive =
+      false;
+
+    showEyeTrackingTarget(
+      point,
+      '',
+      'is-validation'
+    );
+
+
+    window.setTimeout(
+      function() {
+
+        if (
+          eyeTrackingState !== 'validating' ||
+          runId !== eyeTrackingRunId
+        ) {
+          return;
+        }
+
+
+        validationCollectionActive =
+          true;
+
+
+        window.setTimeout(
+          function() {
+
+            finishValidationPoint(
+              point,
+              runId
+            );
+
+          },
+          VALIDATION_SAMPLE_MS
+        );
+
+      },
+      VALIDATION_SETTLE_MS
+    );
+
+  }
+
+
+  function finishValidationPoint(point, runId) {
+
+    if (
+      eyeTrackingState !== 'validating' ||
+      runId !== eyeTrackingRunId
+    ) {
+      return;
+    }
+
+
+    validationCollectionActive =
+      false;
+
+
+    const validSamples =
+      validationSamples.filter(
+        function(sample) {
+          return (
+            Number.isFinite(sample.x) &&
+            Number.isFinite(sample.y)
+          );
+        }
+      );
+
+    const gazeX =
+      getMedian(
+        validSamples.map(
+          function(sample) {
+            return sample.x;
+          }
+        )
+      );
+
+    const gazeY =
+      getMedian(
+        validSamples.map(
+          function(sample) {
+            return sample.y;
+          }
+        )
+      );
+
+    const errorPx =
+      gazeX === null || gazeY === null
+        ? null
+        : Math.sqrt(
+          Math.pow(gazeX - point.x, 2) +
+          Math.pow(gazeY - point.y, 2)
+        );
+
+    const viewportDiagonal =
+      Math.sqrt(
+        Math.pow(window.innerWidth, 2) +
+        Math.pow(window.innerHeight, 2)
+      );
+
+
+    validationResults.push({
+      targetX: point.x,
+      targetY: point.y,
+      gazeX: gazeX,
+      gazeY: gazeY,
+      errorPx: errorPx,
+      normalizedError:
+        errorPx === null
+          ? null
+          : errorPx / viewportDiagonal,
+      sampleCount: validSamples.length
+    });
+
+
+    validationPointIndex +=
+      1;
+
+    showNextValidationPoint(runId);
+
+  }
+
+
+  function completeValidation() {
+
+    hideEyeTrackingTarget();
+
+    const validResults =
+      validationResults.filter(
+        function(result) {
+          return result.errorPx !== null;
+        }
+      );
+
+    const errorValues =
+      validResults.map(
+        function(result) {
+          return result.errorPx;
+        }
+      );
+
+    const normalizedErrorValues =
+      validResults.map(
+        function(result) {
+          return result.normalizedError;
+        }
+      );
+
+    const meanErrorPx =
+      getMean(errorValues);
+
+    const medianErrorPx =
+      getMedian(errorValues);
+
+    const meanNormalizedError =
+      getMean(normalizedErrorValues);
+
+    const passed =
+      validResults.length ===
+      VALIDATION_POINT_RATIOS.length &&
+      meanNormalizedError !== null &&
+      meanNormalizedError <= VALIDATION_THRESHOLD;
+
+
+    console.log(
+      'EYE VALIDATION:',
+      {
+        results: validationResults,
+        meanErrorPx: meanErrorPx,
+        medianErrorPx: medianErrorPx,
+        meanNormalizedError: meanNormalizedError,
+        passed: passed
+      }
+    );
+
+
+    if (passed) {
+
+      eyeTrackingState =
+        'ready';
+
+      resetResearchTracking();
+
+      setEyeTrackingStatus(
+        'Eye Tracking \u0111\u00e3 s\u1eb5n s\u00e0ng. Sai s\u1ed1 trung b\u00ecnh: ' +
+        Math.round(meanErrorPx) +
+        ' px; sai s\u1ed1 chu\u1ea9n h\u00f3a: ' +
+        (meanNormalizedError * 100).toFixed(1) +
+        '%'
+      );
+
+      hideEyeTrackingOverlay();
+
+      return;
+    }
+
+
+    eyeTrackingState =
+      'failed';
+
+    setEyeTrackingStatus(
+      'Hi\u1ec7u ch\u1ec9nh ch\u01b0a \u0111\u1ea1t \u0111\u1ed9 ch\u00ednh x\u00e1c.'
+    );
+
+
+    const overlayElements =
+      getOverlayElements();
+
+    overlayElements.title.textContent =
+      'Hi\u1ec7u ch\u1ec9nh ch\u01b0a \u0111\u1ea1t';
+
+    overlayElements.instruction.textContent =
+      'H\u00e3y hi\u1ec7u ch\u1ec9nh l\u1ea1i \u0111\u1ec3 ki\u1ec3m tra \u0111\u1ed9 ch\u00ednh x\u00e1c.';
+
+    overlayElements.retryButton.hidden =
+      false;
+
+    showEyeTrackingOverlay();
+
+  }
+
+
+
+  /*
+  =========================================================
+   RESEARCH GAZE / AOI / FIXATION PROTOTYPE
+  =========================================================
+  */
+
+  function resetResearchTracking() {
+
+    researchTrackingStartTime =
+      performance.now();
+
+    researchGazeBuffer =
+      [];
+
+    eyeTrackingMetrics =
+      {};
+
+  }
+
+
+  function getElementDepth(element) {
+
+    let depth =
+      0;
+
+    let currentElement =
+      element;
+
+
+    while (currentElement.parentElement) {
+      depth += 1;
+      currentElement =
+        currentElement.parentElement;
+    }
+
+
+    return depth;
+
+  }
+
+
+  function getAOIAtPoint(x, y) {
+
+    const aoiElements =
+      document.querySelectorAll(
+        '[data-aoi]'
+      );
+
+    let matchedElement =
+      null;
+
+    let matchedDepth =
+      -1;
+
+
+    aoiElements.forEach(
+      function(element) {
+
+        const style =
+          window.getComputedStyle(element);
+
+
+        if (
+          style.display === 'none' ||
+          style.visibility === 'hidden'
+        ) {
+          return;
+        }
+
+
+        const rect =
+          element.getBoundingClientRect();
+
+
+        if (
+          rect.width <= 0 ||
+          rect.height <= 0
+        ) {
+          return;
+        }
+
+
+        if (
+          x < rect.left - AOI_EDGE_MARGIN_PX ||
+          x > rect.right + AOI_EDGE_MARGIN_PX ||
+          y < rect.top - AOI_EDGE_MARGIN_PX ||
+          y > rect.bottom + AOI_EDGE_MARGIN_PX
+        ) {
+          return;
+        }
+
+
+        const elementDepth =
+          getElementDepth(element);
+
+
+        if (
+          !matchedElement ||
+          matchedElement.contains(element) ||
+          elementDepth > matchedDepth
+        ) {
+          matchedElement =
+            element;
+
+          matchedDepth =
+            elementDepth;
+        }
+
+      }
+    );
+
+
+    return matchedElement
+      ? matchedElement.dataset.aoi
+      : null;
+
+  }
+
+
+  function getCandidateDispersion(samples) {
+
+    if (!samples.length) {
+      return 0;
+    }
+
+
+    const xValues =
+      samples.map(
+        function(sample) {
+          return sample.x;
+        }
+      );
+
+    const yValues =
+      samples.map(
+        function(sample) {
+          return sample.y;
+        }
+      );
+
+    const dispersionX =
+      Math.max.apply(null, xValues) -
+      Math.min.apply(null, xValues);
+
+    const dispersionY =
+      Math.max.apply(null, yValues) -
+      Math.min.apply(null, yValues);
+
+
+    return dispersionX + dispersionY;
+
+  }
+
+
+  function getMajorityAOI(samples) {
+
+    const aoiCounts =
+      {};
+
+    let majorityAOI =
+      null;
+
+    let majorityCount =
+      0;
+
+
+    samples.forEach(
+      function(sample) {
+
+        if (!sample.aoi) {
+          return;
+        }
+
+
+        aoiCounts[sample.aoi] =
+          (aoiCounts[sample.aoi] || 0) + 1;
+
+
+        if (aoiCounts[sample.aoi] > majorityCount) {
+          majorityAOI =
+            sample.aoi;
+
+          majorityCount =
+            aoiCounts[sample.aoi];
+        }
+
+      }
+    );
+
+
+    if (
+      !majorityAOI ||
+      majorityCount / samples.length <
+      FIXATION_AOI_MAJORITY
+    ) {
+      return null;
+    }
+
+
+    return majorityAOI;
+
+  }
+
+
+  function finalizeCurrentFixation() {
+
+    const candidate =
+      researchGazeBuffer;
+
+
+    researchGazeBuffer =
+      [];
+
+
+    if (candidate.length < 2) {
+      return;
+    }
+
+
+    const startSample =
+      candidate[0];
+
+    const endSample =
+      candidate[candidate.length - 1];
+
+    const durationMs =
+      endSample.time - startSample.time;
+
+    const dispersion =
+      getCandidateDispersion(candidate);
+
+
+    if (
+      durationMs < FIXATION_MIN_DURATION_MS ||
+      dispersion > FIXATION_MAX_DISPERSION_PX
+    ) {
+      return;
+    }
+
+
+    const aoi =
+      getMajorityAOI(candidate);
+
+
+    if (!aoi) {
+      return;
+    }
+
+
+    const fixation = {
+      aoi: aoi,
+      start_time: startSample.time,
+      end_time: endSample.time,
+      duration_ms: durationMs,
+      x: getMedian(
+        candidate.map(
+          function(sample) {
+            return sample.x;
+          }
+        )
+      ),
+      y: getMedian(
+        candidate.map(
+          function(sample) {
+            return sample.y;
+          }
+        )
+      ),
+      sample_count: candidate.length
+    };
+
+
+    if (!eyeTrackingMetrics[aoi]) {
+      eyeTrackingMetrics[aoi] = {
+        fixation_count: 0,
+        fixation_duration_ms: 0,
+        first_fixation_time_ms: null
+      };
+    }
+
+
+    const aoiMetrics =
+      eyeTrackingMetrics[aoi];
+
+    aoiMetrics.fixation_count +=
+      1;
+
+    aoiMetrics.fixation_duration_ms +=
+      fixation.duration_ms;
+
+
+    if (aoiMetrics.first_fixation_time_ms === null) {
+      aoiMetrics.first_fixation_time_ms =
+        fixation.start_time -
+        researchTrackingStartTime;
+    }
+
+
+    if (EYE_TRACKING_DEBUG) {
+      console.log(
+        'FIXATION:',
+        fixation
+      );
+
+      console.log(
+        'EYE METRICS:',
+        eyeTrackingMetrics
+      );
+    }
+
+  }
+
+
+
+  function createEyeTrackingFlushSnapshot() {
+
+    if (!screenAttentionMetrics) {
+      return null;
+    }
+
+    const fieldNames = [
+      'tracking_time_ms',
+      'looking_time_ms',
+      'not_looking_time_ms',
+      'unknown_time_ms'
+    ];
+
+    const metrics =
+      {};
+
+    const nextFlushedMetrics =
+      {};
+
+    let hasDelta =
+      false;
+
+    fieldNames.forEach(
+      function(fieldName) {
+
+        const currentValue =
+          Math.max(
+            0,
+            Math.round(
+              Number(screenAttentionMetrics[fieldName]) || 0
+            )
+          );
+
+        const previousValue =
+          Math.max(
+            0,
+            Math.round(
+              Number(
+                lastFlushedScreenAttentionMetrics &&
+                lastFlushedScreenAttentionMetrics[fieldName]
+              ) || 0
+            )
+          );
+
+        const delta =
+          Math.max(
+            0,
+            currentValue - previousValue
+          );
+
+        metrics[fieldName] =
+          delta;
+
+        nextFlushedMetrics[fieldName] =
+          currentValue;
+
+        if (delta > 0) {
+          hasDelta =
+            true;
+        }
+
+      }
+    );
+
+    if (!hasDelta) {
+      return null;
+    }
+
+    return {
+      metrics: metrics,
+      nextFlushedMetrics: nextFlushedMetrics
+    };
+
+  }
+
+
+  function commitEyeTrackingFlush(snapshot) {
+
+    lastFlushedScreenAttentionMetrics =
+      snapshot.nextFlushedMetrics;
+
+  }
+
+
+  function flushEyeTracking(useKeepalive) {
+
+    if (
+      IS_DEVELOPMENT_MODE ||
+      !eyeTrackingStarted ||
+      eyeTrackingState !== 'ready' ||
+      researchTrackingStartTime === null ||
+      !productId ||
+      eyeTrackingFlushInFlight
+    ) {
+      return Promise.resolve(
+        false
+      );
+    }
+
+
+    updateScreenAttentionTime(
+      performance.now()
+    );
+
+
+    const snapshot =
+      createEyeTrackingFlushSnapshot();
+
+
+    if (!snapshot) {
+      return Promise.resolve(
+        false
+      );
+    }
+
+
+    const payload = {
+      session_id: SESSION_ID,
+      product_id: productId,
+      metrics: snapshot.metrics
+    };
+
+
+    eyeTrackingFlushInFlight =
+      true;
+
+
+    return fetch(API_URL, {
+      method: 'POST',
+
+      headers: {
+        'Content-Type':
+          'text/plain;charset=utf-8'
+      },
+
+      body: JSON.stringify({
+        action: 'saveEyeTracking',
+        data: payload
+      }),
+
+      keepalive:
+        Boolean(useKeepalive)
+    })
+      .then(
+        function(response) {
+
+          if (!response.ok) {
+            throw new Error(
+              'HTTP error: ' + response.status
+            );
+          }
+
+
+          return response.json();
+
+        }
+      )
+      .then(
+        function(result) {
+
+          if (!result.success) {
+            throw new Error(
+              result.message ||
+              'Eye Tracking save failed'
+            );
+          }
+
+
+          commitEyeTrackingFlush(snapshot);
+
+          return true;
+
+        }
+      )
+      .catch(
+        function(error) {
+
+          console.error(
+            'Eye Tracking save error:',
+            error
+          );
+
+          return false;
+
+        }
+      )
+      .finally(
+        function() {
+          eyeTrackingFlushInFlight =
+            false;
+        }
+      );
+
+  }
+
+
+  function startEyeTrackingFlushTimer() {
+
+    stopEyeTrackingFlushTimer();
+
+
+    if (IS_DEVELOPMENT_MODE) {
+      return;
+    }
+
+
+    eyeTrackingFlushTimer =
+      window.setInterval(
+        function() {
+          flushEyeTracking(
+            false
+          );
+        },
+        EYE_TRACKING_FLUSH_INTERVAL_MS
+      );
+
+  }
+
+
+  function stopEyeTrackingFlushTimer() {
+
+    if (!eyeTrackingFlushTimer) {
+      return;
+    }
+
+
+    window.clearInterval(
+      eyeTrackingFlushTimer
+    );
+
+    eyeTrackingFlushTimer =
+      null;
+
+  }
+
+
+  function processResearchGaze(data) {
+
+    if (eyeTrackingState !== 'ready') {
+      return;
+    }
+
+
+    const x =
+      Number(data.x);
+
+    const y =
+      Number(data.y);
+
+
+    if (
+      !Number.isFinite(x) ||
+      !Number.isFinite(y) ||
+      x < 0 ||
+      y < 0 ||
+      x > window.innerWidth ||
+      y > window.innerHeight
+    ) {
+      finalizeCurrentFixation();
+      return;
+    }
+
+
+    const sample = {
+      x: x,
+      y: y,
+      time: performance.now(),
+      aoi: getAOIAtPoint(x, y)
+    };
+
+    const nextCandidate =
+      researchGazeBuffer.concat(
+        sample
+      );
+
+
+    if (
+      getCandidateDispersion(nextCandidate) <=
+      FIXATION_MAX_DISPERSION_PX
+    ) {
+      researchGazeBuffer =
+        nextCandidate;
+
+      return;
+    }
+
+
+    finalizeCurrentFixation();
+
+    researchGazeBuffer =
+      [sample];
+
+  }
+
+
+  function handleGazePrediction(data, elapsedTime) {
+
+    if (!IS_DEVELOPMENT_MODE) {
+      return;
+    }
+
+    if (
+      !data ||
+      !Number.isFinite(data.x) ||
+      !Number.isFinite(data.y)
+    ) {
+      return;
+    }
+
+
+    if (
+      eyeTrackingState === 'validating' &&
+      validationCollectionActive
+    ) {
+      validationSamples.push({
+        x: data.x,
+        y: data.y
+      });
+    }
+
+
+    if (
+      IS_DEVELOPMENT_MODE &&
+      eyeTrackingState === 'ready'
+    ) {
+      processResearchGaze(data);
+    }
+
+
+  }
+
+
+  async function startEyeTracking() {
+
+    const startButton =
+      document.getElementById(
+        IS_DEVELOPMENT_MODE
+          ? 'startEyeTrackingButton'
+          : 'researchEyeTrackingConsentButton'
+      );
+
+
+    if (eyeTrackingStarted) {
+      return;
+    }
+
+
+    if (
+      !IS_DEVELOPMENT_MODE &&
+      localStorage.getItem(
+        CAMERA_PERMISSION_KEY
+      ) !== 'granted'
+    ) {
+      hideResearchEyeTrackingConsent();
+      return;
+    }
+
+
+    startButton.disabled =
+      true;
+
+    eyeTrackingState =
+      'starting';
+
+    try {
+
+      if (IS_DEVELOPMENT_MODE) {
+        if (
+          !window.webgazer ||
+          typeof window.webgazer.begin !== 'function' ||
+          typeof window.webgazer.setGazeListener !== 'function' ||
+          typeof window.webgazer.recordScreenPosition !== 'function'
+        ) {
+          throw new Error(
+            'WebGazer ch\u01b0a \u0111\u01b0\u1ee3c t\u1ea3i \u0111\u00fang'
+          );
+        }
+
+
+        setEyeTrackingStatus(
+          '\u0110ang kh\u1edfi \u0111\u1ed9ng camera...'
+        );
+
+
+        if (window.webgazer.params) {
+          window.webgazer.params.faceMeshSolutionPath =
+            'https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh';
+        }
+
+
+        window.webgazer.setGazeListener(
+          handleGazePrediction
+        );
+
+
+        configureWebGazerVisuals();
+
+
+        const beginResult =
+          window.webgazer.begin();
+
+
+        if (
+          beginResult &&
+          typeof beginResult.then === 'function'
+        ) {
+          await beginResult;
+        }
+
+
+        eyeTrackingStarted =
+          true;
+
+        if (EYE_TRACKING_DEBUG) {
+          console.log(
+            'WebGazer begin resolved'
+          );
+        }
+
+
+        const webGazerReady =
+          await waitForWebGazerReady();
+
+
+        if (EYE_TRACKING_DEBUG) {
+          console.log(
+            'WebGazer ready:',
+            window.webgazer.isReady()
+          );
+        }
+
+
+        if (!webGazerReady) {
+          throw new Error(
+            'WebGazer kh\u00f4ng s\u1eb5n s\u00e0ng'
+          );
+        }
+
+        await beginCalibration();
+      } else {
+        setEyeTrackingStatus(
+          '\u0110ang kh\u1edfi \u0111\u1ed9ng camera...'
+        );
+
+        await startResearchAttentionTracker();
+
+        eyeTrackingStarted =
+          true;
+
+        startResearchAttentionTracking();
+      }
+
+    } catch (error) {
+
+      eyeTrackingState =
+        IS_DEVELOPMENT_MODE
+          ? 'failed'
+          : 'unavailable';
+
+      if (IS_DEVELOPMENT_MODE) {
+        hideEyeTrackingOverlay();
+      } else {
+        stopResearchAttentionTracker();
+        hideResearchEyeTrackingConsent();
+      }
+
+      setEyeTrackingStatus(
+        'Kh\u00f4ng th\u1ec3 kh\u1edfi \u0111\u1ed9ng Eye Tracking'
+      );
+
+      startButton.disabled =
+        false;
+
+
+      if (!IS_DEVELOPMENT_MODE) {
+        document
+          .getElementById(
+            'researchEyeTrackingConsentButton'
+          )
+          .disabled =
+          false;
+      }
+
+      console.error(
+        'Eye Tracking start error:',
+        error
+      );
+
+    }
+
+  }
+
+
+  document
+    .getElementById(
+      'startEyeTrackingButton'
+    )
+    .addEventListener(
+      'click',
+      startEyeTracking
+    );
+
+
+  document
+    .getElementById(
+      'researchEyeTrackingConsentButton'
+    )
+    .addEventListener(
+      'click',
+      startEyeTracking
+    );
+
+
+  configureEyeTrackingModeUI();
+
+
+  document
+    .getElementById(
+      'eyeTrackingTarget'
+    )
+    .addEventListener(
+      'click',
+      recordCalibrationClick
+    );
+
+
+  document
+    .getElementById(
+      'retryEyeTrackingButton'
+    )
+    .addEventListener(
+      'click',
+      function() {
+
+        beginCalibration().catch(
+          function(error) {
+
+            eyeTrackingState =
+              'failed';
+
+            console.error(
+              'Eye Tracking recalibration error:',
+              error
+            );
+
+          }
+        );
+
+      }
+    );
+
+
+  window.addEventListener(
+    'resize',
+    function() {
+
+      if (
+        eyeTrackingState !== 'calibrating' &&
+        eyeTrackingState !== 'validating'
+      ) {
+        return;
+      }
+
+
+      eyeTrackingRunId +=
+        1;
+
+      validationCollectionActive =
+        false;
+
+      eyeTrackingState =
+        'failed';
+
+      hideEyeTrackingTarget();
+
+      const overlayElements =
+        getOverlayElements();
+
+      overlayElements.title.textContent =
+        'K\u00edch th\u01b0\u1edbc m\u00e0n h\u00ecnh \u0111\u00e3 thay \u0111\u1ed5i';
+
+      overlayElements.instruction.textContent =
+        'H\u00e3y hi\u1ec7u ch\u1ec9nh l\u1ea1i v\u1edbi k\u00edch th\u01b0\u1edbc m\u00e0n h\u00ecnh hi\u1ec7n t\u1ea1i.';
+
+      overlayElements.retryButton.hidden =
+        false;
+
+      setEyeTrackingStatus(
+        'K\u00edch th\u01b0\u1edbc m\u00e0n h\u00ecnh \u0111\u00e3 thay \u0111\u1ed5i. H\u00e3y hi\u1ec7u ch\u1ec9nh l\u1ea1i.'
+      );
+
+    }
+  );
+
+
+  document.addEventListener(
+    'visibilitychange',
+    function() {
+
+      if (
+        IS_DEVELOPMENT_MODE ||
+        eyeTrackingState !== 'ready'
+      ) {
+        return;
+      }
+
+      const now =
+        performance.now();
+
+      if (document.visibilityState === 'hidden') {
+        lastScreenAttentionTimestamp =
+          null;
+      } else {
+        lastScreenAttentionTimestamp =
+          now;
+      }
+
+      // Do not attribute hidden-tab time or a stale tracker result to attention.
+      lastScreenAttentionResultAt =
+        null;
+      attentionStateBuffer =
+        [];
+      stableScreenAttentionState =
+        'unknown';
+
+    }
+  );
+
+
+  window.addEventListener(
+    'pagehide',
+    function() {
+
+      if (eyeTrackingState === 'ready') {
+        if (IS_DEVELOPMENT_MODE) {
+          finalizeCurrentFixation();
+        } else {
+          updateScreenAttentionTime(
+            performance.now()
+          );
+
+          flushEyeTracking(
+            true
+          );
+        }
+      }
+
+
+      stopEyeTrackingFlushTimer();
+
+      if (IS_DEVELOPMENT_MODE &&
+        eyeTrackingStarted &&
+        window.webgazer &&
+        typeof window.webgazer.end === 'function'
+      ) {
+        try {
+          window.webgazer.end();
+        } catch (error) {
+          console.error(
+            'Eye Tracking cleanup error:',
+            error
+          );
+        }
+      }
+
+
+      if (!IS_DEVELOPMENT_MODE) {
+        stopResearchAttentionTracker();
+      }
+
+    }
+  );
+
+  /*
+  =========================================================
+   PAGE LOAD
+  =========================================================
+  */
+
+  document.addEventListener(
+
+    'DOMContentLoaded',
+
+    function () {
+
+
+      loadProduct();
+
+
+      if (
+        !IS_DEVELOPMENT_MODE &&
+        localStorage.getItem(
+          CAMERA_PERMISSION_KEY
+        ) === 'granted'
+      ) {
+        startEyeTracking();
+      }
+
+    }
+
+  );
+
+
+
+  /*
+  =========================================================
+   LOAD PRODUCT
+  =========================================================
+  */
+
+  async function loadProduct() {
+
+    if (!productId) {
+      showError(
+        new Error(
+          'URL không có mã sản phẩm'
+        )
+      );
+      return;
+    }
+
+    try {
+
+      const response =
+        await fetch(
+          API_URL +
+          '?action=getProductById&id=' +
+          encodeURIComponent(productId)
+        );
+
+      if (!response.ok) {
+        throw new Error(
+          'HTTP error: ' +
+          response.status
+        );
+      }
+
+      const result =
+        await response.json();
+
+      if (!result.success) {
+        throw new Error(
+          result.message ||
+          'Không thể tải sản phẩm'
+        );
+      }
+
+      renderProduct(
+        result.data
+      );
+
+    } catch (error) {
+
+      console.error(
+        'Lỗi tải chi tiết sản phẩm:',
+        error
+      );
+
+      showError(error);
+
+    }
+
+  }
+
+
+
+  /*
+  =========================================================
+   RENDER PRODUCT
+  =========================================================
+  */
+
+  function renderProduct(product) {
+    console.log('PRODUCT:', product);
+    console.log('IMAGE URL:', product.image_url);
+    console.log(
+      'CONVERTED IMAGE URL:',
+      getProductImageUrl(product.image_url)
+    );
+
+    currentProduct =
+      product;
+
+
+    document
+      .getElementById('loading')
+      .style.display =
+      'none';
+
+
+    document
+      .getElementById('productContent')
+      .style.display =
+      'block';
+
+
+
+    /*
+    -------------------------------------------------------
+    BASIC
+    -------------------------------------------------------
+    */
+
+    setText(
+      'productName',
+      product.name
+    );
+
+
+    setText(
+      'productCategory',
+      product.category
+    );
+
+
+    setText(
+      'productPrice',
+      formatPrice(product.price)
+    );
+
+
+    setText(
+      'quickProductId',
+      product.product_id
+    );
+
+
+    setText(
+      'quickCategory',
+      product.category
+    );
+
+
+    setText(
+      'quickOrigin',
+      product.origin
+    );
+
+
+    setText(
+      'quickPackage',
+      product.package
+    );
+
+
+
+    /*
+    -------------------------------------------------------
+    DETAIL
+    -------------------------------------------------------
+    */
+
+    setText(
+      'detailProductId',
+      product.product_id
+    );
+
+
+    setText(
+      'detailName',
+      product.name
+    );
+
+
+    setText(
+      'detailOrigin',
+      product.origin
+    );
+
+
+    setText(
+      'detailPackage',
+      product.package
+    );
+
+
+    setText(
+      'detailIngredients',
+      product.ingredients
+    );
+
+
+    setText(
+      'detailUsage',
+      product.usage
+    );
+
+
+    setText(
+      'detailStorage',
+      product.storage
+    );
+
+
+
+    /*
+    -------------------------------------------------------
+    TRACEABILITY
+    -------------------------------------------------------
+    */
+
+    setText(
+      'traceCode',
+      product.trace_code
+    );
+
+
+    setText(
+      'traceOrigin',
+      product.origin
+    );
+
+
+    setText(
+      'traceCertification',
+      product.certification
+    );
+
+
+    setText(
+      'materialRegion',
+      product.material_region
+    );
+
+
+    setText(
+      'manufacturer',
+      product.manufacturer
+    );
+
+
+    setText(
+      'manufacturerAddress',
+      product.manufacturer_address
+    );
+
+
+    setText(
+      'distributor',
+      product.distributor
+    );
+
+
+    setText(
+      'distributorAddress',
+      product.distributor_address
+    );
+
+
+
+    /*
+    -------------------------------------------------------
+    CERTIFICATION
+    -------------------------------------------------------
+    */
+
+    setText(
+      'certification',
+      product.certification
+    );
+
+
+    renderCertificateImages(
+      product
+    );
+
+
+
+    /*
+    -------------------------------------------------------
+    PRODUCT IMAGE
+    -------------------------------------------------------
+    */
+
+    renderProductImage(
+      product
+    );
+
+    setTimeout(
+      startScrollTracking,
+      300
+    );
+
+    setTimeout(
+      startAOIExposureTracking,
+      300
+    );
+  }
+
+
+
+  /*
+  =========================================================
+   SET TEXT
+  =========================================================
+  */
+
+  function setText(
+    elementId,
+    value
+  ) {
+
+
+    const element =
+      document.getElementById(
+        elementId
+      );
+
+
+    if (!element) {
+
+      return;
+
+    }
+
+
+    if (
+      value === null ||
+      value === undefined ||
+      value === ''
+    ) {
+
+      element.textContent =
+        'Chưa cập nhật';
+
+    }
+
+    else {
+
+      element.textContent =
+        value;
+
+    }
+
+  }
+
+
+
+  /*
+  =========================================================
+   PRODUCT IMAGE
+  =========================================================
+  */
+
+  function renderProductImage(product) {
+
+
+    const container =
+      document.getElementById(
+        'imageContainer'
+      );
+
+    const imageUrl =
+      getProductImageUrl(
+        product.image_url
+      );
+
+
+    if (!imageUrl) {
+
+      showProductImagePlaceholder();
+
+      return;
+
+    }
+
+
+    container.innerHTML = '';
+
+
+    const image =
+      document.createElement('img');
+
+
+    image.src =
+      imageUrl;
+
+
+    image.alt =
+      product.name;
+
+
+    image.onerror =
+      function () {
+
+        showProductImagePlaceholder();
+
+      };
+
+
+    container.appendChild(
+      image
+    );
+
+  }
+
+
+
+  /*
+  =========================================================
+   IMAGE PLACEHOLDER
+  =========================================================
+  */
+
+  function showProductImagePlaceholder() {
+
+
+    const container =
+      document.getElementById(
+        'imageContainer'
+      );
+
+
+    container.innerHTML = '';
+
+
+    const placeholder =
+      document.createElement('div');
+
+
+    placeholder.className =
+      'image-placeholder';
+
+
+    placeholder.textContent =
+      'Chưa có ảnh sản phẩm';
+
+
+    container.appendChild(
+      placeholder
+    );
+
+  }
+
+
+  function getProductImageUrl(url) {
+
+    if (!url) {
+      return '';
+    }
+
+    const value = String(url).trim();
+
+    if (
+      !value ||
+      value === 'URL ảnh'
+    ) {
+      return '';
+    }
+
+    const driveFileMatch =
+      value.match(
+        /drive\.google\.com\/file\/d\/([^/]+)/
+      );
+
+    if (driveFileMatch) {
+
+      const fileId =
+        driveFileMatch[1];
+
+      return (
+        'https://drive.google.com/thumbnail?id=' +
+        encodeURIComponent(fileId) +
+        '&sz=w1000'
+      );
+    }
+
+    try {
+
+      const parsedUrl =
+        new URL(value);
+
+      if (
+        parsedUrl.hostname ===
+        'drive.google.com'
+      ) {
+
+        const fileId =
+          parsedUrl.searchParams.get('id');
+
+        if (fileId) {
+
+          return (
+            'https://drive.google.com/thumbnail?id=' +
+            encodeURIComponent(fileId) +
+            '&sz=w1000'
+          );
+        }
+      }
+
+    } catch (error) {
+      // Không phải URL hợp lệ.
+    }
+
+    return value;
+  }
+
+
+
+  /*
+  =========================================================
+   CERTIFICATE IMAGES
+  =========================================================
+  */
+
+  function renderCertificateImages(
+    product
+  ) {
+
+
+    const container =
+      document.getElementById(
+        'certificateImages'
+      );
+
+
+    const emptyMessage =
+      document.getElementById(
+        'noCertificateImages'
+      );
+
+
+    container.innerHTML = '';
+
+
+    const images = [
+
+      product.certificate_image_1,
+
+      product.certificate_image_2,
+
+      product.certificate_image_3
+
+    ];
+
+
+    let imageCount = 0;
+
+
+    images.forEach(
+
+      function (url) {
+
+
+        if (
+          !url ||
+          url.trim() === '' ||
+          url === 'URL ảnh'
+        ) {
+
+          return;
+
+        }
+
+
+        const img =
+          document.createElement('img');
+
+
+        img.src =
+          url;
+
+
+        img.alt =
+          'Chứng nhận ' +
+          product.name;
+
+
+        img.onerror =
+          function () {
+
+            img.remove();
+
+          };
+
+
+        container.appendChild(
+          img
+        );
+
+
+        imageCount++;
+
+      }
+
+    );
+
+
+    if (imageCount === 0) {
+
+      emptyMessage.style.display =
+        'block';
+
+    }
+
+    else {
+
+      emptyMessage.style.display =
+        'none';
+
+    }
+
+  }
+
+  function showToast(message) {
+
+    const toast =
+      document.getElementById('toast');
+
+    if (!toast) {
+      return;
+    }
+
+    toast.textContent = message;
+
+    toast.classList.add('show');
+
+    setTimeout(function() {
+      toast.classList.remove('show');
+    }, 2500);
+  }
+
+  /*
+  =========================================================
+   FORMAT PRICE
+  =========================================================
+  */
+
+  function formatPrice(price) {
+
+
+    const number =
+      Number(price);
+
+
+    if (isNaN(number)) {
+
+      return '';
+
+    }
+
+
+    return number
+        .toLocaleString('vi-VN')
+      + 'đ';
+
+  }
+
+
+  function getSelectedQuantity() {
+
+    const input =
+      document.getElementById(
+        'quantityInput'
+      );
+
+
+    let quantity =
+      parseInt(input.value, 10);
+
+
+    if (
+      !Number.isFinite(quantity) ||
+      quantity < 1
+    ) {
+      quantity = 1;
+    }
+
+
+    input.value =
+      quantity;
+
+
+    return quantity;
+
+  }
+
+
+  function changeQuantity(amount) {
+
+    const input =
+      document.getElementById(
+        'quantityInput'
+      );
+
+
+    const quantity =
+      Math.max(
+        1,
+        getSelectedQuantity() + amount
+      );
+
+
+    input.value =
+      quantity;
+
+  }
+
+
+
+  /*
+  =========================================================
+   ADD TO CART
+  =========================================================
+  */
+
+  function addToCart() {
+
+
+    if (!currentProduct) {
+      return;
+    }
+
+
+    const quantity =
+      getSelectedQuantity();
+
+
+    const CART_KEY =
+      'infobuy_cart';
+
+
+    let cart = [];
+
+
+    try {
+
+      const savedCart =
+        localStorage.getItem(
+          CART_KEY
+        );
+
+
+      if (savedCart) {
+
+        cart =
+          JSON.parse(savedCart);
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        'Không đọc được giỏ hàng:',
+        error
+      );
+
+      cart = [];
+
+    }
+
+
+    if (!Array.isArray(cart)) {
+
+      cart = [];
+
+    }
+
+
+    const existingProduct =
+      cart.find(
+        function(item) {
+
+          return (
+            item.product_id ===
+            currentProduct.product_id
+          );
+
+        }
+      );
+
+
+    if (existingProduct) {
+
+      existingProduct.quantity =
+        Number(
+          existingProduct.quantity || 1
+        ) + quantity;
+
+    }
+
+    else {
+
+      cart.push({
+
+        product_id:
+        currentProduct.product_id,
+
+        name:
+        currentProduct.name,
+
+        price:
+          Number(
+            currentProduct.price
+          ),
+
+        image_url:
+        currentProduct.image_url,
+
+        quantity:
+          quantity
+
+      });
+
+    }
+
+
+    localStorage.setItem(
+      CART_KEY,
+      JSON.stringify(cart)
+    );
+
+
+    showToast(
+      '✓ Đã thêm "' +
+      currentProduct.name +
+      '" vào giỏ hàng'
+    );
+
+  }
+
+
+
+  /*
+  =========================================================
+   BUY NOW
+  =========================================================
+  */
+
+  function buyNow() {
+
+    if (!currentProduct) {
+      return;
+    }
+
+    const quantity =
+      getSelectedQuantity();
+
+
+    const buyNowItem = {
+      product_id:
+        currentProduct.product_id,
+
+      name:
+        currentProduct.name,
+
+      price:
+        Number(currentProduct.price),
+
+      image_url:
+        currentProduct.image_url || '',
+
+      quantity:
+        quantity
+    };
+
+
+    console.log(
+      'BUY NOW ITEM:',
+      buyNowItem
+    );
+
+
+    /*
+     Lưu riêng sản phẩm MUA NGAY.
+     Không làm mất giỏ hàng hiện tại.
+    */
+
+    localStorage.setItem(
+      'infobuy_buy_now',
+      JSON.stringify(buyNowItem)
+    );
+
+
+    /*
+     Chuyển sang Checkout ở chế độ buy-now
+    */
+
+    window.location.href =
+      'checkout.html?mode=buy-now';
+
+  }
+
+
+
+  /*
+  =========================================================
+   ERROR
+  =========================================================
+  */
+
+  function showError(message) {
+
+
+    document
+      .getElementById('loading')
+      .style.display =
+      'none';
+
+
+    const errorBox =
+      document.getElementById(
+        'errorBox'
+      );
+
+
+    errorBox.style.display =
+      'flex';
+
+
+    document
+      .getElementById(
+        'errorMessage'
+      )
+      .textContent =
+      message;
+
+  }
+
+
+</script>
+
+<div id="toast" class="toast"></div>
+
+<style>
+  .eye-tracking-test {
+    max-width: 1180px;
+    margin: 24px auto 0;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid #d8e5dd;
+    border-radius: 6px;
+    background: #f7fbf8;
+    color: #2f5140;
+    font-size: 14px;
+  }
+
+  .eye-tracking-test button {
+    padding: 8px 12px;
+    border: 0;
+    border-radius: 4px;
+    background: #3d986f;
+    color: #ffffff;
+    cursor: pointer;
+  }
+
+  .eye-tracking-test button:disabled {
+    cursor: default;
+    opacity: 0.65;
+  }
+
+  .eye-tracking-test[hidden] {
+    display: none;
+  }
+
+  .research-eye-tracking-consent {
+    max-width: 760px;
+    margin: 24px auto 0;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border: 1px solid #d8e5dd;
+    border-radius: 6px;
+    background: #f7fbf8;
+    color: #2f5140;
+    font-size: 14px;
+  }
+
+  .research-eye-tracking-consent[hidden] {
+    display: none;
+  }
+
+  .research-eye-tracking-consent p {
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .research-eye-tracking-consent button {
+    flex: 0 0 auto;
+    padding: 8px 12px;
+    border: 0;
+    border-radius: 4px;
+    background: #3d986f;
+    color: #ffffff;
+    cursor: pointer;
+  }
+
+  .research-eye-tracking-consent button:disabled {
+    cursor: default;
+    opacity: 0.65;
+  }
+
+  .eye-tracking-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 20000;
+    background: rgba(10, 25, 18, 0.94);
+    color: #ffffff;
+  }
+
+  .eye-tracking-overlay[hidden] {
+    display: none;
+  }
+
+  .eye-tracking-overlay-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 36px;
+    box-sizing: border-box;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .eye-tracking-overlay-content h2 {
+    margin: 0 0 10px;
+    font-size: 22px;
+  }
+
+  .eye-tracking-overlay-content p {
+    max-width: 560px;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .eye-tracking-target {
+    position: fixed;
+    width: 76px;
+    height: 76px;
+    border: 4px solid #ffffff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    pointer-events: auto;
+  }
+
+  .eye-tracking-target.is-calibration {
+    background: #e15b3d;
+    cursor: pointer;
+  }
+
+  .eye-tracking-target.is-validation {
+    width: 42px;
+    height: 42px;
+    background: #3d986f;
+    cursor: default;
+  }
+
+  .eye-tracking-retry {
+    margin-top: 24px;
+    padding: 10px 16px;
+    border: 0;
+    border-radius: 4px;
+    background: #e15b3d;
+    color: #ffffff;
+    font-size: 15px;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  .toast {
+    position: fixed;
+    top: 85px;
+    right: 30px;
+
+    background: #ffffff;
+    color: #333;
+
+    border-left: 5px solid #3d986f;
+    border-radius: 6px;
+
+    padding: 16px 22px;
+
+    box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+
+    font-size: 14px;
+
+    opacity: 0;
+    transform: translateY(-10px);
+
+    pointer-events: none;
+
+    transition: 0.3s;
+
+    z-index: 9999;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+</body>
+
+</html>

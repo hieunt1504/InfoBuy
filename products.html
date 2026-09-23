@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <base target="_top">
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Sản phẩm - InfoBuy</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #333;
+      background: #ffffff;
+    }
+
+    /* ==============================
+       HEADER
+    ============================== */
+
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 30px;
+
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      color: white;
+      text-decoration: none;
+
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .logo {
+      width: 34px;
+      height: 34px;
+
+      background: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: #268b61;
+      font-size: 8px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+
+      font-size: 13px;
+    }
+
+    nav a:hover {
+      color: #cdeadd;
+    }
+
+    .nav-divider {
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ==============================
+       HERO
+    ============================== */
+
+    .hero {
+      height: 265px;
+
+      background:
+        linear-gradient(
+          rgba(0,0,0,0.42),
+          rgba(0,0,0,0.42)
+        );
+
+      background-color: #777;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      text-align: center;
+
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      letter-spacing: 1px;
+    }
+
+    .hero-line {
+      width: 80px;
+      height: 6px;
+
+      background: #429c76;
+
+      margin: 18px auto 0;
+    }
+
+    /* ==============================
+       PRODUCTS
+    ============================== */
+
+    .products-section {
+      width: 90%;
+      max-width: 1050px;
+
+      margin: 0 auto;
+
+      padding: 40px 0 70px;
+      min-height: 450px;
+    }
+
+    .products-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 45px 24px;
+    }
+
+    /* ==============================
+       PRODUCT CARD
+    ============================== */
+
+    .product-card {
+      cursor: pointer;
+      text-align: center;
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+      padding-bottom: 15px;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .product-image-box {
+      width: 100%;
+      height: 220px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
+
+      background: #fafafa;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 100%;
+
+      object-fit: contain;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: #f2f2f2;
+
+      color: #999;
+      font-size: 13px;
+
+      padding: 20px;
+    }
+
+    .product-name {
+      margin-top: 14px;
+
+      font-size: 14px;
+      font-weight: normal;
+
+      min-height: 40px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-price {
+      margin-top: 8px;
+
+      color: #ff2525;
+
+      font-size: 14px;
+    }
+
+    /* ==============================
+       LOADING
+    ============================== */
+
+    .loading {
+      grid-column: 1 / -1;
+
+      text-align: center;
+
+      padding: 80px 20px;
+
+      color: #777;
+    }
+
+    /* ==============================
+       ERROR
+    ============================== */
+
+    .error-message {
+      grid-column: 1 / -1;
+
+      text-align: center;
+
+      color: #d93025;
+
+      padding: 80px 20px;
+
+      line-height: 1.6;
+    }
+
+    /* ==============================
+       EMPTY
+    ============================== */
+
+    .empty-message {
+      grid-column: 1 / -1;
+
+      text-align: center;
+
+      color: #777;
+
+      padding: 80px 20px;
+    }
+
+    /* ==============================
+       FOOTER
+    ============================== */
+
+    footer {
+      background: #40956f;
+
+      min-height: 150px;
+
+      padding: 28px 20px;
+    }
+
+    .footer-content {
+      width: 90%;
+      max-width: 1000px;
+
+      margin: auto;
+
+      color: #111;
+
+      font-size: 13px;
+      line-height: 2.8;
+    }
+
+    /* ==============================
+       RESPONSIVE
+    ============================== */
+
+    @media (max-width: 900px) {
+
+      .products-grid {
+        grid-template-columns:
+          repeat(3, 1fr);
+      }
+
+    }
+
+    @media (max-width: 700px) {
+
+      nav {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .products-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+    }
+
+    @media (max-width: 450px) {
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==================================
+     HEADER
+================================== -->
+
+<header>
+
+  <a
+    class="brand"
+    href="index.html"
+    target="_top"
+  >
+
+    <div class="logo">
+      InfoBuy
+    </div>
+
+    InfoBuy
+
+  </a>
+
+
+  <nav>
+
+    <a
+      href="index.html"
+    >
+      TRANG CHỦ
+    </a>
+
+    <span class="nav-divider">·</span>
+
+    <a
+      href="products.html"
+    >
+      <strong>SẢN PHẨM</strong>
+    </a>
+
+    <span class="nav-divider">·</span>
+
+    <a href="#">
+      TIN TỨC
+    </a>
+
+    <span class="nav-divider">·</span>
+
+    <a href="#">
+      HỖ TRỢ
+    </a>
+
+    <span class="nav-divider">·</span>
+
+    <a
+      href="cart.html"
+    >
+      GIỎ HÀNG
+    </a>
+
+  </nav>
+
+</header>
+
+
+<!-- ==================================
+     HERO
+================================== -->
+
+<section class="hero">
+
+  <div>
+
+    <h1>
+      SẢN PHẨM
+    </h1>
+
+    <div class="hero-line"></div>
+
+  </div>
+
+</section>
+
+
+<!-- ==================================
+     PRODUCT LIST
+================================== -->
+
+<section class="products-section">
+
+  <div
+    id="productsGrid"
+    class="products-grid"
+  >
+
+    <div class="loading">
+      Đang tải sản phẩm...
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ==================================
+     FOOTER
+================================== -->
+
+<footer>
+
+  <div class="footer-content">
+
+    <strong>
+      InfoBuy
+    </strong>
+
+    <div>
+      <strong>Địa chỉ:</strong>
+      Lương Định Của,
+      phường An Phú,
+      TP.HCM
+    </div>
+
+    <div>
+      <strong>Số điện thoại:</strong>
+      0914455878
+    </div>
+
+  </div>
+
+</footer>
+
+
+<!-- ==================================
+     JAVASCRIPT
+================================== -->
+
+<script>
+
+  /*
+   * ========================================
+   * API URL
+   * ========================================
+   *
+   * QUAN TRỌNG:
+   * Phải đặt ngoài renderProducts()
+   * và ngoài addEventListener().
+   */
+
+  const API_URL =
+    'https://script.google.com/macros/s/AKfycbyfepk9EfTaL7sdRgrT9vWtF8tkGZS2UArLIEUT2CbhSY7HJ7T_b92YQulqzAHo3Wte/exec';
+
+
+  const SESSION_KEY =
+    'infobuy_session_id';
+
+
+  function getSessionId() {
+
+    let sessionId =
+      localStorage.getItem(
+        SESSION_KEY
+      );
+
+
+    if (!sessionId) {
+
+      sessionId =
+        'SID_' +
+        Date.now() +
+        '_' +
+        Math.random()
+          .toString(36)
+          .substring(2, 8)
+          .toUpperCase();
+
+
+      localStorage.setItem(
+        SESSION_KEY,
+        sessionId
+      );
+
+    }
+
+
+    return sessionId;
+  }
+
+
+  const SESSION_ID =
+    getSessionId();
+
+  /*
+   * ========================================
+   * KHI TRANG LOAD
+   * ========================================
+   */
+
+  document.addEventListener(
+    'DOMContentLoaded',
+    function () {
+
+      loadProducts();
+
+    }
+  );
+
+
+  /*
+   * ========================================
+   * LẤY SẢN PHẨM TỪ APPS SCRIPT
+   * ========================================
+   */
+
+  async function loadProducts() {
+
+    try {
+
+      const response =
+        await fetch(
+          API_URL +
+          '?action=getProducts'
+        );
+
+      if (!response.ok) {
+        throw new Error(
+          'HTTP error: ' +
+          response.status
+        );
+      }
+
+      const result =
+        await response.json();
+
+      if (!result.success) {
+        throw new Error(
+          result.message ||
+          'Không thể tải sản phẩm'
+        );
+      }
+
+      renderProducts(
+        result.data
+      );
+
+    } catch (error) {
+
+      console.error(
+        'Lỗi tải sản phẩm:',
+        error
+      );
+
+      showError(error);
+
+    }
+
+  }
+
+
+  /*
+   * ========================================
+   * HIỂN THỊ DANH SÁCH SẢN PHẨM
+   * ========================================
+   */
+
+  function renderProducts(products) {
+
+    const grid =
+      document.getElementById(
+        'productsGrid'
+      );
+
+    grid.innerHTML = '';
+
+
+    /*
+     * Không có sản phẩm
+     */
+
+    if (
+      !products ||
+      products.length === 0
+    ) {
+
+      grid.innerHTML = `
+        <div class="empty-message">
+          Hiện chưa có sản phẩm.
+        </div>
+      `;
+
+      return;
+    }
+
+
+    /*
+     * Tạo từng product card
+     */
+
+    products.forEach(
+      function (product) {
+
+        const card =
+          createProductCard(product);
+
+        grid.appendChild(card);
+
+      }
+    );
+
+  }
+
+
+  /*
+   * ========================================
+   * TẠO PRODUCT CARD
+   * ========================================
+   */
+
+  function createProductCard(product) {
+
+    const card =
+      document.createElement('div');
+
+    card.className =
+      'product-card';
+
+
+    /*
+     * Dùng cho tracking sau này
+     */
+
+    card.dataset.productId =
+      product.product_id;
+
+    card.dataset.aoi =
+      'product-card';
+
+
+    /*
+     * IMAGE
+     */
+
+    const imageBox =
+      document.createElement('div');
+
+    imageBox.className =
+      'product-image-box';
+
+    const imageUrl =
+      getProductImageUrl(
+        product.image_url
+      );
+
+
+    /*
+     * Kiểm tra có URL ảnh thật hay chưa
+     */
+
+    if (imageUrl) {
+
+      const img =
+        document.createElement('img');
+
+      img.className =
+        'product-image';
+
+      img.src =
+        imageUrl;
+
+      img.alt =
+        product.name;
+
+
+      /*
+       * Nếu URL ảnh lỗi
+       */
+
+      img.onerror =
+        function () {
+
+          imageBox.innerHTML = '';
+
+          const placeholder =
+            createImagePlaceholder();
+
+          imageBox.appendChild(
+            placeholder
+          );
+
+        };
+
+
+      imageBox.appendChild(img);
+
+    }
+
+    else {
+
+      imageBox.appendChild(
+        createImagePlaceholder()
+      );
+
+    }
+
+
+    /*
+     * NAME
+     */
+
+    const name =
+      document.createElement('div');
+
+    name.className =
+      'product-name';
+
+    name.textContent =
+      product.name;
+
+
+    /*
+     * PRICE
+     */
+
+    const price =
+      document.createElement('div');
+
+    price.className =
+      'product-price';
+
+    price.textContent =
+      formatPrice(
+        product.price
+      );
+
+
+    /*
+     * Đưa vào card
+     */
+
+    card.appendChild(imageBox);
+
+    card.appendChild(name);
+
+    card.appendChild(price);
+
+
+    /*
+     * ========================================
+     * CLICK PRODUCT
+     * ========================================
+     *
+     * Đây là chỗ trước đó bạn bị sai.
+     *
+     * Chỉ gọi openProduct().
+     * KHÔNG khai báo function bên trong đây.
+     */
+
+    card.addEventListener(
+      'click',
+      function () {
+
+        openProduct(
+          product.product_id
+        );
+
+      }
+    );
+
+
+    return card;
+
+  }
+
+
+  /*
+   * ========================================
+   * IMAGE PLACEHOLDER
+   * ========================================
+   */
+
+  function createImagePlaceholder() {
+
+    const placeholder =
+      document.createElement('div');
+
+    placeholder.className =
+      'image-placeholder';
+
+    placeholder.textContent =
+      'Chưa có ảnh sản phẩm';
+
+    return placeholder;
+
+  }
+
+
+  function getProductImageUrl(url) {
+
+    if (!url) {
+      return '';
+    }
+
+    const value = String(url).trim();
+
+    if (
+      !value ||
+      value === 'URL ảnh'
+    ) {
+      return '';
+    }
+
+    const driveFileMatch =
+      value.match(
+        /drive\.google\.com\/file\/d\/([^/]+)/
+      );
+
+    if (driveFileMatch) {
+
+      const fileId =
+        driveFileMatch[1];
+
+      return (
+        'https://drive.google.com/thumbnail?id=' +
+        encodeURIComponent(fileId) +
+        '&sz=w1000'
+      );
+    }
+
+    try {
+
+      const parsedUrl =
+        new URL(value);
+
+      if (
+        parsedUrl.hostname ===
+        'drive.google.com'
+      ) {
+
+        const fileId =
+          parsedUrl.searchParams.get('id');
+
+        if (fileId) {
+
+          return (
+            'https://drive.google.com/thumbnail?id=' +
+            encodeURIComponent(fileId) +
+            '&sz=w1000'
+          );
+        }
+      }
+
+    } catch (error) {
+      // Không phải URL hợp lệ.
+    }
+
+    return value;
+  }
+
+
+  /*
+   * ========================================
+   * FORMAT GIÁ
+   * ========================================
+   */
+
+  function formatPrice(price) {
+
+    const number =
+      Number(price);
+
+
+    if (isNaN(number)) {
+
+      return '';
+
+    }
+
+
+    return number.toLocaleString(
+      'vi-VN'
+    ) + 'đ';
+
+  }
+
+
+  /*
+   * ========================================
+   * MỞ PRODUCT DETAIL
+   * ========================================
+   */
+
+  function openProduct(productId) {
+
+    if (!productId) {
+
+      console.error(
+        'Không có product_id'
+      );
+
+      return;
+
+    }
+
+
+    /*
+     * Ví dụ:
+     *
+     * product-detail.html?id=P001
+     */
+
+    const detailUrl =
+
+      'product-detail.html?id=' +
+
+      encodeURIComponent(
+        productId
+      );
+
+
+    window.location.href =
+      detailUrl;
+
+  }
+
+
+  /*
+   * ========================================
+   * HIỂN THỊ LỖI
+   * ========================================
+   */
+
+  function showError(error) {
+
+    console.error(
+      'Lỗi tải sản phẩm:',
+      error
+    );
+
+
+    const grid =
+      document.getElementById(
+        'productsGrid'
+      );
+
+
+    let message =
+      'Không xác định được lỗi.';
+
+
+    if (
+      error &&
+      error.message
+    ) {
+
+      message =
+        error.message;
+
+    }
+
+
+    grid.innerHTML = '';
+
+
+    const errorDiv =
+      document.createElement('div');
+
+    errorDiv.className =
+      'error-message';
+
+
+    const title =
+      document.createElement('strong');
+
+    title.textContent =
+      'Không thể tải sản phẩm.';
+
+
+    const detail =
+      document.createElement('div');
+
+    detail.style.marginTop =
+      '10px';
+
+    detail.textContent =
+      message;
+
+
+    errorDiv.appendChild(title);
+
+    errorDiv.appendChild(detail);
+
+    grid.appendChild(errorDiv);
+
+  }
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <base target="_top">
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Đặt hàng - InfoBuy</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #222;
+      background: #f7f7f7;
+    }
+
+    header {
+      height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+    }
+
+    .brand {
+      text-decoration: none;
+      color: #333;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #666;
+      font-size: 13px;
+    }
+
+    nav a:hover {
+      color: #3d986f;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1050px;
+      margin: 45px auto;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      font-size: 27px;
+    }
+
+    .checkout-layout {
+      display: grid;
+      grid-template-columns: 1fr 390px;
+      gap: 30px;
+      align-items: start;
+    }
+
+    .box {
+      background: #fff;
+      padding: 30px;
+      border: 1px solid #eee;
+    }
+
+    .box h2 {
+      margin-top: 0;
+      margin-bottom: 25px;
+      font-size: 19px;
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    .form-group > label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="tel"],
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    .form-group textarea {
+      min-height: 95px;
+      resize: vertical;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .error-message {
+      display: none;
+      margin-bottom: 20px;
+      padding: 12px 15px;
+      background: #fff3f3;
+      color: #c62828;
+      border: 1px solid #ffcdd2;
+      font-size: 13px;
+    }
+
+    .order-item {
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .order-item-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .order-name {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .order-id {
+      margin-top: 5px;
+      color: #888;
+      font-size: 12px;
+    }
+
+    .order-price {
+      margin-top: 8px;
+      color: #555;
+      font-size: 13px;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 2px solid #eee;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .place-order-button {
+      width: 100%;
+      height: 50px;
+      margin-top: 25px;
+      border: none;
+      background: #3d986f;
+      color: #fff;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .place-order-button:hover {
+      opacity: 0.92;
+    }
+
+    .place-order-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .back-cart {
+      display: block;
+      margin-top: 15px;
+      text-align: center;
+      color: #3d986f;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .empty-cart {
+      padding: 70px 20px;
+      background: #fff;
+      text-align: center;
+    }
+
+    .empty-cart a {
+      color: #3d986f;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .success-box {
+      max-width: 620px;
+      margin: 60px auto;
+      background: #fff;
+      padding: 45px 30px;
+      border: 1px solid #eee;
+      text-align: center;
+    }
+
+    .success-icon {
+      margin-bottom: 15px;
+      color: #3d986f;
+      font-size: 55px;
+    }
+
+    .success-order-id {
+      margin: 15px 0;
+      font-size: 19px;
+      font-weight: bold;
+    }
+
+    .continue-shopping {
+      display: inline-block;
+      margin-top: 20px;
+      color: #3d986f;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .toast {
+      position: fixed;
+      top: 80px;
+      right: 30px;
+      padding: 16px 22px;
+      background: #fff;
+      color: #333;
+      border-left: 5px solid #3d986f;
+      border-radius: 6px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+      font-size: 14px;
+
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+      transition: 0.3s;
+      z-index: 9999;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 800px) {
+      nav {
+        display: none;
+      }
+
+      .checkout-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+<header>
+
+  <a
+    class="brand"
+    href="index.html"
+  >
+    InfoBuy
+  </a>
+
+  <nav>
+
+    <a
+      href="index.html"
+    >
+      TRANG CHỦ
+    </a>
+
+    <a
+      href="products.html"
+    >
+      SẢN PHẨM
+    </a>
+
+    <a
+      href="cart.html"
+    >
+      GIỎ HÀNG
+    </a>
+
+  </nav>
+
+</header>
+
+
+<main class="container">
+
+  <h1>THÔNG TIN ĐẶT HÀNG</h1>
+
+  <div id="checkoutContent"></div>
+
+</main>
+
+
+<div
+  id="toast"
+  class="toast"
+></div>
+
+
+<script>
+
+  /*
+  =========================================================
+   CONFIG
+  =========================================================
+  */
+
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+
+  const CHECKOUT_MODE =
+    params.get('mode') === 'buy-now'
+      ? 'buy-now'
+      : 'cart';
+
+
+  const API_URL =
+    'https://script.google.com/macros/s/AKfycbyfepk9EfTaL7sdRgrT9vWtF8tkGZS2UArLIEUT2CbhSY7HJ7T_b92YQulqzAHo3Wte/exec';
+
+
+  const CART_KEY =
+    'infobuy_cart';
+
+
+  const BUY_NOW_KEY =
+    'infobuy_buy_now';
+
+  const SESSION_KEY =
+    'infobuy_session_id';
+
+
+  function getSessionId() {
+
+    let sessionId =
+      localStorage.getItem(
+        SESSION_KEY
+      );
+
+
+    if (!sessionId) {
+
+      sessionId =
+        'SID_' +
+        Date.now() +
+        '_' +
+        Math.random()
+          .toString(36)
+          .substring(2, 8)
+          .toUpperCase();
+
+
+      localStorage.setItem(
+        SESSION_KEY,
+        sessionId
+      );
+
+    }
+
+
+    return sessionId;
+  }
+
+
+  const SESSION_ID =
+    getSessionId();
+
+
+  /*
+  =========================================================
+   LẤY DỮ LIỆU ĐƠN HÀNG
+
+   Nếu MUA NGAY:
+   → lấy infobuy_buy_now
+
+   Nếu đi từ GIỎ HÀNG:
+   → lấy infobuy_cart
+  =========================================================
+  */
+
+  function getCart() {
+
+    try {
+
+      let storageKey =
+        CART_KEY;
+
+
+      if (
+        CHECKOUT_MODE === 'buy-now'
+      ) {
+
+        storageKey =
+          BUY_NOW_KEY;
+
+      }
+
+
+      const data =
+        localStorage.getItem(
+          storageKey
+        );
+
+
+      if (!data) {
+
+        return [];
+
+      }
+
+
+      const cart =
+        JSON.parse(data);
+
+
+      if (
+        CHECKOUT_MODE === 'buy-now' &&
+        cart &&
+        !Array.isArray(cart) &&
+        typeof cart === 'object'
+      ) {
+        return [cart];
+      }
+
+
+      if (!Array.isArray(cart)) {
+
+        return [];
+
+      }
+
+
+      return cart;
+
+    }
+
+    catch (error) {
+
+      console.error(
+        'Không đọc được dữ liệu đơn hàng:',
+        error
+      );
+
+      return [];
+
+    }
+
+  }
+
+
+
+  /*
+  =========================================================
+   RENDER CHECKOUT
+  =========================================================
+  */
+
+  function renderCheckout() {
+
+    const cart =
+      getCart();
+
+
+    const container =
+      document.getElementById(
+        'checkoutContent'
+      );
+
+
+    /*
+    -------------------------------------------------------
+    KHÔNG CÓ SẢN PHẨM
+    -------------------------------------------------------
+    */
+
+    if (cart.length === 0) {
+
+      container.innerHTML = `
+
+      <div class="empty-cart">
+
+        <h2>
+          Không có sản phẩm để đặt hàng
+        </h2>
+
+        <p>
+          Vui lòng chọn sản phẩm trước
+          khi tiến hành đặt hàng.
+        </p>
+
+        <br>
+
+        <a
+          href="products.html"
+        >
+          QUAY LẠI SẢN PHẨM
+        </a>
+
+      </div>
+
+    `;
+
+      return;
+
+    }
+
+
+    /*
+    -------------------------------------------------------
+    FORM
+    -------------------------------------------------------
+    */
+
+    container.innerHTML = `
+
+    <div class="checkout-layout">
+
+
+      <!-- =============================================
+           THÔNG TIN NGƯỜI MUA
+      ============================================== -->
+
+      <section class="box">
+
+        <h2>
+          Thông tin người mua
+        </h2>
+
+
+        <div
+          id="formError"
+          class="error-message"
+        ></div>
+
+
+        <!-- GIỚI TÍNH -->
+
+        <div class="form-group">
+
+          <label>
+            Giới tính
+          </label>
+
+          <div class="radio-group">
+
+            <label class="radio-option">
+
+              <input
+                type="radio"
+                name="gender"
+                value="Anh"
+              >
+
+              Anh
+
+            </label>
+
+
+            <label class="radio-option">
+
+              <input
+                type="radio"
+                name="gender"
+                value="Chị"
+              >
+
+              Chị
+
+            </label>
+
+          </div>
+
+        </div>
+
+
+        <!-- HỌ TÊN -->
+
+        <div class="form-group">
+
+          <label for="customerName">
+            Họ và tên
+          </label>
+
+          <input
+            id="customerName"
+            type="text"
+            autocomplete="name"
+            placeholder="Nhập họ và tên"
+          >
+
+        </div>
+
+
+        <!-- SĐT -->
+
+        <div class="form-group">
+
+          <label for="customerPhone">
+            Số điện thoại
+          </label>
+
+          <input
+            id="customerPhone"
+            type="tel"
+            autocomplete="tel"
+            placeholder="Ví dụ: 0901234567"
+          >
+
+        </div>
+
+
+        <!-- ĐỊA CHỈ -->
+
+        <div class="form-group">
+
+          <label for="customerAddress">
+            Địa chỉ
+          </label>
+
+          <textarea
+            id="customerAddress"
+            autocomplete="street-address"
+            placeholder="Nhập địa chỉ nhận hàng"
+          ></textarea>
+
+        </div>
+
+
+        <!-- GIAO HÀNG -->
+
+        <div class="form-group">
+
+          <label>
+            Hình thức giao hàng
+          </label>
+
+
+          <div class="radio-group">
+
+            <label class="radio-option">
+
+              <input
+                type="radio"
+                name="delivery"
+                value="Giao tận nơi"
+                checked
+              >
+
+              Giao tận nơi
+
+            </label>
+
+
+            <label class="radio-option">
+
+              <input
+                type="radio"
+                name="delivery"
+                value="Nhận tại siêu thị"
+              >
+
+              Nhận tại siêu thị
+
+            </label>
+
+          </div>
+
+        </div>
+
+
+        <!-- THANH TOÁN -->
+
+        <div class="form-group">
+
+          <label>
+            Hình thức thanh toán
+          </label>
+
+
+          <div class="radio-group">
+
+            <label class="radio-option">
+
+              <input
+                type="radio"
+                name="payment"
+                value="COD"
+                checked
+              >
+
+              Thanh toán khi nhận hàng (COD)
+
+            </label>
+
+
+            <label class="radio-option">
+
+              <input
+                type="radio"
+                name="payment"
+                value="Chuyển khoản ngân hàng"
+              >
+
+              Chuyển khoản ngân hàng
+
+            </label>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =============================================
+           ĐƠN HÀNG
+      ============================================== -->
+
+      <aside class="box">
+
+        <h2>
+          Đơn hàng của bạn
+        </h2>
+
+
+        <div id="orderItems"></div>
+
+
+        <div class="total-row">
+
+          <span>
+            Tổng cộng
+          </span>
+
+          <span id="orderTotal">
+            0đ
+          </span>
+
+        </div>
+
+
+        <button
+          id="placeOrderButton"
+          class="place-order-button"
+          onclick="validateOrder()"
+        >
+          HOÀN TẤT ĐẶT HÀNG
+        </button>
+
+
+        <a
+          class="back-cart"
+          href="cart.html"
+        >
+          ← QUAY LẠI GIỎ HÀNG
+        </a>
+
+      </aside>
+
+    </div>
+
+  `;
+
+
+    renderOrderItems(
+      cart
+    );
+
+  }
+
+
+
+  /*
+  =========================================================
+   RENDER SẢN PHẨM TRONG ĐƠN
+  =========================================================
+  */
+
+  function renderOrderItems(cart) {
+
+    const container =
+      document.getElementById(
+        'orderItems'
+      );
+
+
+    let html = '';
+
+    let total = 0;
+
+
+    cart.forEach(
+      function(item) {
+
+
+        const price =
+          Number(item.price) || 0;
+
+
+        const quantity =
+          Number(item.quantity) || 1;
+
+
+        const itemTotal =
+          price * quantity;
+
+
+        total +=
+          itemTotal;
+
+
+        html += `
+
+        <div class="order-item">
+
+          <div class="order-item-top">
+
+            <div>
+
+              <div class="order-name">
+
+                ${escapeHtml(
+          item.name
+        )}
+
+              </div>
+
+
+              <div class="order-id">
+
+                Mã sản phẩm:
+                ${escapeHtml(
+          item.product_id
+        )}
+
+              </div>
+
+            </div>
+
+
+            <strong>
+
+              × ${quantity}
+
+            </strong>
+
+          </div>
+
+
+          <div class="order-price">
+
+            ${formatPrice(price)}
+
+            × ${quantity}
+
+            =
+
+            ${formatPrice(
+          itemTotal
+        )}
+
+          </div>
+
+        </div>
+
+      `;
+
+      }
+    );
+
+
+    container.innerHTML =
+      html;
+
+
+    document
+      .getElementById(
+        'orderTotal'
+      )
+      .textContent =
+      formatPrice(total);
+
+  }
+
+
+
+  /*
+  =========================================================
+   VALIDATE FORM
+  =========================================================
+  */
+
+  function validateOrder() {
+
+    hideFormError();
+
+
+    const cart =
+      getCart();
+
+
+    if (cart.length === 0) {
+
+      showFormError(
+        'Không có sản phẩm để đặt hàng.'
+      );
+
+      return;
+
+    }
+
+
+    /*
+    -------------------------------------------------------
+    GIỚI TÍNH
+    -------------------------------------------------------
+    */
+
+    const genderElement =
+      document.querySelector(
+        'input[name="gender"]:checked'
+      );
+
+
+    if (!genderElement) {
+
+      showFormError(
+        'Vui lòng chọn giới tính.'
+      );
+
+      return;
+
+    }
+
+
+    /*
+    -------------------------------------------------------
+    HỌ TÊN
+    -------------------------------------------------------
+    */
+
+    const name =
+      document
+        .getElementById(
+          'customerName'
+        )
+        .value
+        .trim();
+
+
+    if (!name) {
+
+      showFormError(
+        'Vui lòng nhập họ và tên.'
+      );
+
+      return;
+
+    }
+
+
+    /*
+    -------------------------------------------------------
+    PHONE
+    -------------------------------------------------------
+    */
+
+    const phone =
+      document
+        .getElementById(
+          'customerPhone'
+        )
+        .value
+        .trim();
+
+
+    if (!phone) {
+
+      showFormError(
+        'Vui lòng nhập số điện thoại.'
+      );
+
+      return;
+
+    }
+
+
+    /*
+     Cho phép +84 hoặc số bắt đầu bằng 0.
+     Chỉ kiểm tra cơ bản.
+    */
+
+    const phonePattern =
+      /^(\+84|0)[0-9]{8,10}$/;
+
+
+    const normalizedPhone =
+      phone.replace(
+        /[\s.-]/g,
+        ''
+      );
+
+
+    if (
+      !phonePattern.test(
+        normalizedPhone
+      )
+    ) {
+
+      showFormError(
+        'Số điện thoại chưa đúng định dạng.'
+      );
+
+      return;
+
+    }
+
+
+    /*
+    -------------------------------------------------------
+    ADDRESS
+    -------------------------------------------------------
+    */
+
+    const address =
+      document
+        .getElementById(
+          'customerAddress'
+        )
+        .value
+        .trim();
+
+
+    if (!address) {
+
+      showFormError(
+        'Vui lòng nhập địa chỉ.'
+      );
+
+      return;
+
+    }
+
+
+    /*
+    -------------------------------------------------------
+    DELIVERY
+    -------------------------------------------------------
+    */
+
+    const deliveryElement =
+      document.querySelector(
+        'input[name="delivery"]:checked'
+      );
+
+
+    if (!deliveryElement) {
+
+      showFormError(
+        'Vui lòng chọn hình thức giao hàng.'
+      );
+
+      return;
+
+    }
+
+
+    /*
+    -------------------------------------------------------
+    PAYMENT
+    -------------------------------------------------------
+    */
+
+    const paymentElement =
+      document.querySelector(
+        'input[name="payment"]:checked'
+      );
+
+
+    if (!paymentElement) {
+
+      showFormError(
+        'Vui lòng chọn hình thức thanh toán.'
+      );
+
+      return;
+
+    }
+
+
+    /*
+    -------------------------------------------------------
+    TẠO DỮ LIỆU GỬI SERVER
+    -------------------------------------------------------
+    */
+
+    const orderData = {
+
+      gender:
+      genderElement.value,
+
+      name:
+      name,
+
+      phone:
+      normalizedPhone,
+
+      address:
+      address,
+
+      delivery_method:
+      deliveryElement.value,
+
+      payment_method:
+      paymentElement.value,
+
+      /*
+       Bước session_id sau này
+       sẽ thay giá trị này.
+      */
+
+      session_id:
+      SESSION_ID,
+
+      cart:
+      cart
+
+    };
+
+
+    /*
+    -------------------------------------------------------
+    GỬI ĐƠN
+    -------------------------------------------------------
+    */
+
+    submitOrder(
+      orderData
+    );
+
+  }
+
+
+
+  /*
+  =========================================================
+   SUBMIT ORDER
+  =========================================================
+  */
+
+  function submitOrder(orderData) {
+
+    const button =
+      document.getElementById(
+        'placeOrderButton'
+      );
+
+
+    if (button) {
+
+      button.disabled =
+        true;
+
+      button.textContent =
+        'ĐANG XỬ LÝ...';
+
+    }
+
+
+    console.log(
+      'ORDER DATA:',
+      orderData
+    );
+
+
+    fetch(API_URL, {
+      method: 'POST',
+
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+
+      body: JSON.stringify({
+        action: 'saveOrder',
+        data: orderData
+      })
+    })
+      .then(response => {
+
+        if (!response.ok) {
+          throw new Error(
+            'HTTP error: ' + response.status
+          );
+        }
+
+        return response.json();
+      })
+      .then(result => {
+
+        console.log(
+          'SAVE ORDER RESULT:',
+          result
+        );
+
+        if (!result.success) {
+          throw new Error(
+            result.message || 'Không thể lưu đơn hàng'
+          );
+        }
+
+        handleOrderSuccess(
+          result
+        );
+      })
+      .catch(error => {
+
+        console.error(
+          'Save order error:',
+          error
+        );
+
+
+        if (button) {
+
+          button.disabled =
+            false;
+
+          button.textContent =
+            'HOÀN TẤT ĐẶT HÀNG';
+
+        }
+
+
+        let message =
+          'Không thể lưu đơn hàng.';
+
+
+        if (
+          error &&
+          error.message
+        ) {
+
+          message =
+            error.message;
+
+        }
+
+
+        showFormError(
+          message
+        );
+
+      });
+
+  }
+
+
+
+  /*
+  =========================================================
+   ORDER SUCCESS
+  =========================================================
+  */
+
+  function handleOrderSuccess(result) {
+
+
+    if (
+      !result ||
+      result.success !== true
+    ) {
+
+      showFormError(
+        'Không thể hoàn tất đơn hàng.'
+      );
+
+      resetOrderButton();
+
+      return;
+
+    }
+
+
+    /*
+    -------------------------------------------------------
+    XÓA ĐÚNG STORAGE
+
+    MUA NGAY
+    → chỉ xóa infobuy_buy_now
+
+    GIỎ HÀNG
+    → xóa infobuy_cart
+    -------------------------------------------------------
+    */
+
+    if (
+      CHECKOUT_MODE ===
+      'buy-now'
+    ) {
+
+      localStorage.removeItem(
+        BUY_NOW_KEY
+      );
+
+    }
+
+    else {
+
+      localStorage.removeItem(
+        CART_KEY
+      );
+
+    }
+    localStorage.removeItem(
+      SESSION_KEY
+    );
+
+
+    /*
+    -------------------------------------------------------
+    HIỂN THỊ THÀNH CÔNG
+    -------------------------------------------------------
+    */
+
+    const container =
+      document.getElementById(
+        'checkoutContent'
+      );
+
+
+    container.innerHTML = `
+
+    <div class="success-box">
+
+      <div class="success-icon">
+        ✓
+      </div>
+
+
+      <h2>
+        Đặt hàng thành công
+      </h2>
+
+
+      <p>
+        Cảm ơn bạn đã đặt hàng tại InfoBuy.
+      </p>
+
+
+      <p>
+        Mã đơn hàng:
+      </p>
+
+
+      <div class="success-order-id">
+
+        ${escapeHtml(
+      result.order_id
+    )}
+
+      </div>
+
+
+      <p>
+
+        Tổng đơn hàng:
+
+        <strong>
+
+          ${formatPrice(
+      result.total
+    )}
+
+        </strong>
+
+      </p>
+
+
+      <a
+        class="continue-shopping"
+        href="products.html"
+      >
+        TIẾP TỤC XEM SẢN PHẨM
+      </a>
+
+    </div>
+
+  `;
+
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+
+  }
+
+
+
+  /*
+  =========================================================
+   RESET BUTTON
+  =========================================================
+  */
+
+  function resetOrderButton() {
+
+    const button =
+      document.getElementById(
+        'placeOrderButton'
+      );
+
+
+    if (!button) {
+      return;
+    }
+
+
+    button.disabled =
+      false;
+
+
+    button.textContent =
+      'HOÀN TẤT ĐẶT HÀNG';
+
+  }
+
+
+
+  /*
+  =========================================================
+   ERROR
+  =========================================================
+  */
+
+  function showFormError(message) {
+
+    const box =
+      document.getElementById(
+        'formError'
+      );
+
+
+    if (!box) {
+
+      console.error(message);
+
+      return;
+
+    }
+
+
+    box.textContent =
+      message;
+
+
+    box.style.display =
+      'block';
+
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+
+  }
+
+
+  function hideFormError() {
+
+    const box =
+      document.getElementById(
+        'formError'
+      );
+
+
+    if (!box) {
+      return;
+    }
+
+
+    box.textContent =
+      '';
+
+
+    box.style.display =
+      'none';
+
+  }
+
+
+
+  /*
+  =========================================================
+   TOAST
+  =========================================================
+  */
+
+  function showToast(message) {
+
+    const toast =
+      document.getElementById(
+        'toast'
+      );
+
+
+    if (!toast) {
+      return;
+    }
+
+
+    toast.textContent =
+      message;
+
+
+    toast.classList.add(
+      'show'
+    );
+
+
+    setTimeout(
+      function() {
+
+        toast.classList.remove(
+          'show'
+        );
+
+      },
+      2500
+    );
+
+  }
+
+
+
+  /*
+  =========================================================
+   FORMAT PRICE
+  =========================================================
+  */
+
+  function formatPrice(price) {
+
+    const number =
+      Number(price);
+
+
+    if (
+      !Number.isFinite(number)
+    ) {
+
+      return '0đ';
+
+    }
+
+
+    return number
+        .toLocaleString('vi-VN')
+      + 'đ';
+
+  }
+
+
+
+  /*
+  =========================================================
+   ESCAPE HTML
+  =========================================================
+  */
+
+  function escapeHtml(value) {
+
+    return String(
+      value || ''
+    )
+
+      .replace(
+        /&/g,
+        '&amp;'
+      )
+
+      .replace(
+        /</g,
+        '&lt;'
+      )
+
+      .replace(
+        />/g,
+        '&gt;'
+      )
+
+      .replace(
+        /"/g,
+        '&quot;'
+      )
+
+      .replace(
+        /'/g,
+        '&#039;'
+      );
+
+  }
+
+
+
+  /*
+  =========================================================
+   START
+  =========================================================
+  */
+
+  document.addEventListener(
+    'DOMContentLoaded',
+    renderCheckout
+  );
+
+</script>
+
+</body>
+
+</html>
